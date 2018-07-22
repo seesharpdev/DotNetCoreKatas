@@ -8,18 +8,16 @@ namespace DotNetCoreWebApi.Host.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IActionResult Get()
         {
 	        var strings = new[] { "value1", "value2" };
 
 	        return Ok(strings);
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public IActionResult Get(int id)
         {
 	        const string value = "value";
 	        if (id == 0)
@@ -30,9 +28,8 @@ namespace DotNetCoreWebApi.Host.Controllers
 	        return Ok(value);
         }
 
-        // POST api/values
         [HttpPost]
-        public ActionResult Post([FromBody] string value)
+        public IActionResult Post([FromBody] string value)
         {
 	        if (!ModelState.IsValid)
 	        {
@@ -42,16 +39,20 @@ namespace DotNetCoreWebApi.Host.Controllers
 			return CreatedAtAction("Get", new { id = value }, value);
 		}
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] string value)
         {
+			// TODO: Validate the id with the passed in object identifier (id == value.id)
+			if (id.ToString() == value)
+			{
+				return NoContent();
+	        }
 
-        }
+	        return BadRequest();
+		}
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
 	        //var existingItem = _service.GetById(id);
 	        if (id == 0)

@@ -27,24 +27,24 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    var controller = Factory.New();
 
 		    // Act
-		    var response = controller.Get();
+		    var response = controller.Get() as OkObjectResult;
 
-		    // Assert
-		    Assert.IsType<ActionResult<IEnumerable<string>>>(response);
-		    Assert.IsAssignableFrom<OkObjectResult>(response.Result);
-	    }
+			// Assert
+			Assert.IsAssignableFrom<OkObjectResult>(response);
+		    Assert.IsAssignableFrom<IEnumerable<string>>(response.Value);
+		}
 
-	    [Fact]
+		[Fact]
 	    public void Get_WhenCalled_ReturnsAllItems()
 	    {
 			// Arrange
 		    var controller = Factory.New();
 
 			// Act
-			var response = controller.Get().Result as OkObjectResult;
+			var response = controller.Get() as OkObjectResult;
 
-		    // Assert
-		    var items = Assert.IsAssignableFrom<IEnumerable<string>>(response.Value);
+			// Assert
+			var items = Assert.IsAssignableFrom<IEnumerable<string>>(response.Value);
 		    Assert.Equal(2, items.Count());
 	    }
 
@@ -55,10 +55,10 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    var controller = Factory.New();
 
 			// Act
-		    var notFoundResult = controller.Get(0);
+		    var result = controller.Get(0);
 
 		    // Assert
-		    Assert.IsType<NotFoundResult>(notFoundResult.Result);
+		    Assert.IsType<NotFoundResult>(result);
 	    }
 
 	    [Fact]
@@ -66,13 +66,13 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	    {
 			// Arrange
 		    var controller = Factory.New();
-		    var testId = 1;
+		    const int testId = 1;
 
 		    // Act
-		    var okResult = controller.Get(testId);
+		    var result = controller.Get(testId);
 
 		    // Assert
-		    Assert.IsType<OkObjectResult>(okResult.Result);
+		    Assert.IsType<OkObjectResult>(result);
 	    }
 
 	    [Fact]
@@ -80,71 +80,70 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	    {
 			// Arrange
 		    var controller = Factory.New();
-		    var testId = 1;
+		    const int testId = 1;
 
 		    // Act
-		    var okResult = controller.Get(testId).Result as OkObjectResult;
+		    var result = controller.Get(testId) as OkObjectResult;
 
 		    // Assert
-		    Assert.IsType<string>(okResult.Value);
-		    Assert.Equal("value", okResult.Value as string);
+		    Assert.IsType<string>(result.Value);
+		    Assert.Equal("value", result.Value as string);
 	    }
 
 	    [Fact]
-	    public void Add_InvalidObjectPassed_ReturnsBadRequest()
+	    public void Post_InvalidObjectPassed_ReturnsBadRequest()
 	    {
 			// Arrange
 		    var controller = Factory.New();
 			controller.ModelState.AddModelError("Value", "Required");
 
 		    // Act
-		    var badResponse = controller.Post(string.Empty);
+		    var response = controller.Post(string.Empty);
 
 		    // Assert
-		    Assert.IsType<BadRequestObjectResult>(badResponse);
+		    Assert.IsType<BadRequestObjectResult>(response);
 	    }
 
 	    [Fact]
-	    public void Add_ValidObjectPassed_ReturnsCreatedResponse()
+	    public void Post_ValidObjectPassed_ReturnsCreatedResponse()
 	    {
 			// Arrange
 		    var controller = Factory.New();
 
 		    // Act
-		    var createdResponse = controller.Post("testValue");
+		    var response = controller.Post("testValue");
 
 		    // Assert
-		    Assert.IsType<CreatedAtActionResult>(createdResponse);
+		    Assert.IsType<CreatedAtActionResult>(response);
 	    }
 
 	    [Fact]
-	    public void Add_ValidObjectPassed_ReturnedResponseHasCreatedItem()
+	    public void Post_ValidObjectPassed_ReturnedResponseHasCreatedItem()
 	    {
 			// Arrange
 			var controller = Factory.New();
-		    var testValue = "testValue";
+		    const string testValue = "testValue";
 
 		    // Act
-		    var createdResponse = controller.Post(testValue) as CreatedAtActionResult;
-		    var item = createdResponse.Value as string;
+		    var response = controller.Post(testValue) as CreatedAtActionResult;
+		    var item = response?.Value as string;
 
-		    // Assert
-		    Assert.IsType<string>(item);
+			// Assert
+			Assert.IsType<string>(item);
 			Assert.Equal(testValue, item);
 		}
 
 	    [Fact]
-	    public void Remove_NotExistingGuidPassed_ReturnsNotFoundResponse()
+	    public void Remove_NotExistingIdPassed_ReturnsNotFoundResponse()
 	    {
 			// Arrange
 		    var controller = Factory.New();
-			const int notExistingId = 0;
 
 		    // Act
-		    var badResponse = controller.Delete(notExistingId);
+		    var response = controller.Delete(0);
 
 		    // Assert
-		    Assert.IsType<NotFoundResult>(badResponse);
+		    Assert.IsType<NotFoundResult>(response);
 	    }
 
 	    [Fact]
@@ -155,10 +154,10 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			const int existingId = 1;
 
 		    // Act
-		    var okResponse = controller.Delete(existingId);
+		    var response = controller.Delete(existingId);
 
 		    // Assert
-		    Assert.IsType<OkResult>(okResponse);
+		    Assert.IsType<OkResult>(response);
 	    }
 
 		[Fact(Skip = "Service need to be mocked and expectations verified.")]
