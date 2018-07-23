@@ -1,6 +1,7 @@
 ﻿namespace DotNetCoreKatas.Core.Interfaces
 {
-	public interface IAggregateRoot
+	public interface IAggregateRoot<out T>
 	{
+		T Id { get; }
 	}
 }
