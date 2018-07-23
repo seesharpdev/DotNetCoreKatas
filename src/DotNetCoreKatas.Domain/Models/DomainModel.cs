@@ -3,7 +3,7 @@ using DotNetCoreKatas.Core.Interfaces;
 
 namespace DotNetCoreKatas.Domain.Models
 {
-	public class DomainModel<T> : AggregateRoot<T> where T : new()
+	internal class DomainModel<T> : AggregateRoot<T> where T : new()
 	{
 		public static class Factory
 		{
