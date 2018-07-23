@@ -25,16 +25,18 @@ namespace DotNetCoreKatas.Core.UnitTests
 
 			// Assert
 			Assert.Equal(typeof(Entity<int>), type.BaseType);
+			Assert.Equal(typeof(IEntity<int>), type.BaseType.GetInterface(typeof(IEntity<>).FullName));
 	    }
 
 	    [Fact]
-	    public void AggregateRoot_Should_Expose_Interface()
+	    public void AggregateRoot_Should_Implement_Interfaces()
 	    {
-		    // Act
-		    var interfaces = typeof(AggregateRoot<int>).GetInterfaces();
+			// Act
+			var type = typeof(AggregateRoot<int>);
 
-		    // Assert
-			Assert.Equal(typeof(IAggregateRoot), interfaces[0]);
+			// Assert
+			Assert.Equal(typeof(IEntity<int>), type.GetInterface(typeof(IEntity<>).FullName));
+			Assert.Equal(typeof(IAggregateRoot<int>), type.GetInterface(typeof(IAggregateRoot<>).FullName));
 	    }
     }
 }
