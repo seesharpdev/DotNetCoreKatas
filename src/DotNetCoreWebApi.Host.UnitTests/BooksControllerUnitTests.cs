@@ -1,22 +1,36 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
+using Moq;
 
+using DotNetCoreKatas.QueryAdapter.Interfaces;
+using DotNetCoreKatas.QueryAdapter.Contracts;
 using DotNetCoreWebApi.Host.Controllers;
 
 namespace DotNetCoreWebApi.Host.UnitTests
 {
 	[ExcludeFromCodeCoverage]
-    public class ValuesControllerUnitTests
-    {
-	    private static class Factory
+    public class BooksControllerUnitTests
+	{
+		private static readonly Mock<IBooksQueryAdapter> AdapterMock = new Mock<IBooksQueryAdapter>();
+
+		private static class Factory
 	    {
-		    internal static ValuesController New()
-		    {
-				return new ValuesController();
+			internal static BooksController New()
+			{
+				IEnumerable<BookReadModel> bookReadModels = new[] { new BookReadModel { Id = 1 } };
+
+				AdapterMock.Setup(_ => _.GetAll())
+					.Returns(Task.FromResult(bookReadModels));
+
+				AdapterMock.Setup(_ => _.GetById(It.IsAny<int>()))
+					.ReturnsAsync(bookReadModels.FirstOrDefault);
+
+				return new BooksController(AdapterMock.Object);
 		    }
 	    }
 
@@ -27,11 +41,11 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    var controller = Factory.New();
 
 		    // Act
-		    var response = controller.Get() as OkObjectResult;
+		    var response = controller.Get().Result as OkObjectResult;
 
 			// Assert
 			Assert.IsAssignableFrom<OkObjectResult>(response);
-		    Assert.IsAssignableFrom<IEnumerable<string>>(response.Value);
+			Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(response.Value);
 		}
 
 		[Fact]
@@ -41,11 +55,11 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    var controller = Factory.New();
 
 			// Act
-			var response = controller.Get() as OkObjectResult;
+			var response = controller.Get().Result as OkObjectResult;
 
 			// Assert
-			var items = Assert.IsAssignableFrom<IEnumerable<string>>(response.Value);
-		    Assert.Equal(2, items.Count());
+			var items = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(response?.Value);
+		    Assert.Single(items);
 	    }
 
 	    [Fact]
@@ -55,7 +69,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    var controller = Factory.New();
 
 			// Act
-		    var result = controller.Get(0);
+		    var result = controller.Get(0).Result;
 
 		    // Assert
 		    Assert.IsType<NotFoundResult>(result);
@@ -69,7 +83,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    const int testId = 1;
 
 		    // Act
-		    var result = controller.Get(testId);
+		    var result = controller.Get(testId).Result;
 
 		    // Assert
 		    Assert.IsType<OkObjectResult>(result);
@@ -80,14 +94,14 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	    {
 			// Arrange
 		    var controller = Factory.New();
-		    const int testId = 1;
+		    const int modelId = 1;
 
 		    // Act
-		    var result = controller.Get(testId) as OkObjectResult;
+		    var result = controller.Get(modelId).Result as OkObjectResult;
 
 		    // Assert
-		    Assert.IsType<string>(result.Value);
-		    Assert.Equal("value", result.Value as string);
+		    Assert.IsType<BookReadModel>(result?.Value);
+		    Assert.Equal(modelId, (result.Value as BookReadModel).Id);
 	    }
 
 	    [Fact]
@@ -98,7 +112,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			controller.ModelState.AddModelError("Value", "Required");
 
 		    // Act
-		    var response = controller.Post(string.Empty);
+		    var response = controller.Post(null);
 
 		    // Assert
 		    Assert.IsType<BadRequestObjectResult>(response);
@@ -109,9 +123,10 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	    {
 			// Arrange
 		    var controller = Factory.New();
+		    var model = new BookReadModel { Id = 1 };
 
 		    // Act
-		    var response = controller.Post("testValue");
+		    var response = controller.Post(model);
 
 		    // Assert
 		    Assert.IsType<CreatedAtActionResult>(response);
@@ -122,15 +137,15 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	    {
 			// Arrange
 			var controller = Factory.New();
-		    const string testValue = "testValue";
+		    var model = new BookReadModel { Id = 1 };
 
 		    // Act
-		    var response = controller.Post(testValue) as CreatedAtActionResult;
-		    var item = response?.Value as string;
+		    var response = controller.Post(model) as CreatedAtActionResult;
+		    var book = response?.Value as BookReadModel;
 
 			// Assert
-			Assert.IsType<string>(item);
-			Assert.Equal(testValue, item);
+			Assert.IsType<BookReadModel>(book);
+			Assert.NotNull(book);
 		}
 
 	    [Fact]

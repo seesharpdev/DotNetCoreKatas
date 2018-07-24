@@ -1,21 +1,23 @@
 using DotNetCoreKatas.Core.Domain;
-using DotNetCoreKatas.Core.Interfaces;
 
 namespace DotNetCoreKatas.Domain.Models
 {
-	internal class DomainModel<T> : AggregateRoot<T> where T : new()
+	public class DomainModel : AggregateRoot<int>
 	{
-		public static class Factory
-		{
-			public static IAggregateRoot<T> New<T>(T id) where T : new()
-			{
-				return new DomainModel<T>(id);
-			}
-		}
-
-		private DomainModel(T id)
+		/// <summary>
+		/// This should be our only option to instantiate a new Aggregate Root.
+		/// </summary>
+		/// <param name="id"></param>
+		public DomainModel(int id)
 		{
 			Id = id;
+		}
+
+		/// <summary>
+		///  Needed by the EF/ORM.
+		/// </summary>
+		private DomainModel()
+		{
 		}
 	}
 }
