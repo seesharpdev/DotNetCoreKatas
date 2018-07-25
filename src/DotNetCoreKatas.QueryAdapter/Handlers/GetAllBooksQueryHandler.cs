@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using DotNetCoreKatas.Core.Interfaces;
-using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Persistence.Extensions;
 using DotNetCoreKatas.Query.Contracts.Models;
+using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class GetAllBooksQueryHandler : IQueryHandler<IEnumerable<BookReadModel>>
+	public class GetAllBooksQueryHandler : IGetAllBooksQueryHandler //IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>>
 	{
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
@@ -23,10 +22,10 @@ namespace DotNetCoreKatas.Query.Adapter.Handlers
 			_dbContext = dbContext;
 			_mapper = mapper;
 		}
-
-		public async Task<IEnumerable<BookReadModel>> Handle(IQuery<IEnumerable<BookReadModel>> query)
+		
+		public IEnumerable<BookReadModel> Handle(GetAllBooksQuery query)
 		{
-			var models = await _dbContext.Books.AsNoTrackingQueryable();
+			var models = _dbContext.Books.AsNoTrackingQueryable().Result;
 			var readModels = models.Select(m => _mapper.Map(m))
 				.AsEnumerable();
 

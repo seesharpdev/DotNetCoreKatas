@@ -6,7 +6,7 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Mappers
 {
-	public class BookDomainModelMapper
+	public class BookDomainModelMapperUnitTests
     {
 		[Fact]
 	    public void Mapper_Should_Map()

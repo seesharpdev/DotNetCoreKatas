@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace DotNetCoreKatas.Core.Interfaces.Querying
+﻿namespace DotNetCoreKatas.Core.Interfaces.Querying
 {
-	public interface IQueryHandler<T> where T : class
+	public interface IQueryHandler<in TQuery, out TResult> where TQuery : IQuery<TResult>
 	{
-		Task<T> Handle(IQuery<T> query);
+		TResult Handle(TQuery query);
 	}
 }

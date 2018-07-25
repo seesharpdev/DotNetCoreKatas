@@ -14,7 +14,7 @@ namespace DotNetCoreKatas.Query.Adapter.Adapters
 {
 	public class BooksQueryAdapter : QueryAdapter<BookReadModel, int>, IBooksQueryAdapter
 	{
-		// TODO: Break dependency on EF/ORM by introducing a QueryHandlerRegistry<IEnumerable<QueryHandler<T>>>
+		// TODO: Break dependency on EF/ORM by introducing a QueryProcessor<IEnumerable<QueryHandler<T>>>
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
 

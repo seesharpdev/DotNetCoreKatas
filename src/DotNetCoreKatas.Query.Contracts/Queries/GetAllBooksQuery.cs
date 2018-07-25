@@ -1,6 +1,6 @@
 ﻿namespace DotNetCoreKatas.Query.Contracts.Queries
 {
-	public class GetAllBookQuery : IGetAllBookQuery
+	public class GetAllBooksQuery : IGetAllBooksQuery
 	{
 	}
 }

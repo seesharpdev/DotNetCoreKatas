@@ -60,14 +60,14 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 	    public void GetAllBooks_Should_Handler()
 	    {
 			// Arrange
-			IQueryHandler<IEnumerable<BookReadModel>> handler = Factory.New();
+			IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>> handler = Factory.New();
 
 		    // Act
-		    var result = handler.Handle(new GetAllBookQuery());
+		    var result = handler.Handle(new GetAllBooksQuery());
 
 			// Assert
 		    Assert.NotNull(result);
-			var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result.Result);
+			var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result);
 			Assert.Equal(3, bookCount.Count());
 	    }
     }
