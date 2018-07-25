@@ -14,7 +14,7 @@ using DotNetCoreKatas.Query.Adapter.Mappers;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
 
-namespace DotNetCoreKatas.QueryAdapter.UnitTests.Handlers
+namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 {
 	public class GetAllBooksQueryHandlerUnitTests
     {

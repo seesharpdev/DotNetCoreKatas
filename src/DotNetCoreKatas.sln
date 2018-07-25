@@ -28,19 +28,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{93
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Query.Adapter", "DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj", "{4CC312D1-2DF4-4C8D-A03F-22E5823C4728}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.QueryAdapter.UnitTests", "DotNetCoreKatas.QueryAdapter.UnitTests\DotNetCoreKatas.QueryAdapter.UnitTests.csproj", "{B124DB83-FAE2-4AA8-BFA9-CD0436F65650}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Query.Adapter.UnitTests", "DotNetCoreKatas.QueryAdapter.UnitTests\DotNetCoreKatas.Query.Adapter.UnitTests.csproj", "{B124DB83-FAE2-4AA8-BFA9-CD0436F65650}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{3B03140D-883B-42B4-A6D1-F2AC72712401}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Persistence", "DotNetCoreKatas.Persistence\DotNetCoreKatas.Persistence.csproj", "{6F1A478B-3711-4294-B213-3D56EF45B7C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreKatas.Query.Contracts", "DotNetCoreKatas.Query.Contracts\DotNetCoreKatas.Query.Contracts.csproj", "{94C41ED7-0790-4B02-A4CE-C451FBE503EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Query.Contracts", "DotNetCoreKatas.Query.Contracts\DotNetCoreKatas.Query.Contracts.csproj", "{94C41ED7-0790-4B02-A4CE-C451FBE503EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreKatas.Command.Adapter", "DotNetCoreKatas.Command.Adapter\DotNetCoreKatas.Command.Adapter.csproj", "{AF4020DF-7D4C-4D45-AB97-3839169577E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Command.Adapter", "DotNetCoreKatas.Command.Adapter\DotNetCoreKatas.Command.Adapter.csproj", "{AF4020DF-7D4C-4D45-AB97-3839169577E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreKatas.Command.Adapter.UnitTests", "DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj", "{F81052AD-57EA-4C16-8C2F-90AB78A8F6D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Command.Adapter.UnitTests", "DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj", "{F81052AD-57EA-4C16-8C2F-90AB78A8F6D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreKatas.Command.Contracts", "DotNetCoreKatas.Command.Contracts\DotNetCoreKatas.Command.Contracts.csproj", "{C94D3B66-6DE4-4A35-BA07-65E605B9C611}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreKatas.Command.Contracts", "DotNetCoreKatas.Command.Contracts\DotNetCoreKatas.Command.Contracts.csproj", "{C94D3B66-6DE4-4A35-BA07-65E605B9C611}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

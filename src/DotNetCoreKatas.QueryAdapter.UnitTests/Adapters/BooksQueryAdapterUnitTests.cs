@@ -12,7 +12,7 @@ using DotNetCoreKatas.Query.Adapter.Adapters;
 using DotNetCoreKatas.Query.Contracts.Adapters;
 using DotNetCoreKatas.Query.Contracts.Models;
 
-namespace DotNetCoreKatas.QueryAdapter.UnitTests.Adapters
+namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 {
 	public class BooksQueryAdapterUnitTests
 	{
