@@ -17,7 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetCoreKatas.Persistence\DotNetCoreKatas.Persistence.csproj" />
-    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.QueryAdapter.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.Query.Contracts\DotNetCoreKatas.Query.Contracts.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj" />
   </ItemGroup>
 
 </Project>

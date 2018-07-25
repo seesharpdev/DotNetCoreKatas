@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using DotNetCoreKatas.Core.Interfaces;
 using DotNetCoreKatas.Domain.Models;
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Interfaces;
-using DotNetCoreKatas.QueryAdapter.Mappers;
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Persistence.Extensions;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 
-namespace DotNetCoreKatas.QueryAdapter.Adapters
+namespace DotNetCoreKatas.Query.Adapter.Adapters
 {
 	public class BooksQueryAdapter : QueryAdapter<BookReadModel, int>, IBooksQueryAdapter
 	{

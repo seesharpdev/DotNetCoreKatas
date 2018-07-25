@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Xunit;
 using Moq;
 
-using DotNetCoreKatas.QueryAdapter.Interfaces;
-using DotNetCoreKatas.QueryAdapter.Contracts;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Controllers;
 
 namespace DotNetCoreWebApi.Host.UnitTests

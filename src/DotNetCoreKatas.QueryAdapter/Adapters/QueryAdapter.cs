@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using DotNetCoreKatas.QueryAdapter.Interfaces;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 
-namespace DotNetCoreKatas.QueryAdapter.Adapters
+namespace DotNetCoreKatas.Query.Adapter.Adapters
 {
 	[Obsolete("Assess the need/use of this!")]
 	public abstract class QueryAdapter<TType, TKey> : IQueryAdapter<TType, TKey> 

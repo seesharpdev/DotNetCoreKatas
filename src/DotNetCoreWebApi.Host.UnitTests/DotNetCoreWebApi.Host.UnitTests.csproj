@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.QueryAdapter.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj" />
     <ProjectReference Include="..\DotNetCoreWebApi.Host\DotNetCoreWebApi.Host.csproj" />
   </ItemGroup>
 

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DotNetCoreKatas.QueryAdapter.Interfaces
+namespace DotNetCoreKatas.Core.Interfaces.Querying
 {
-	// TODO: Move to DotNetCoreKatas.Core.Interfaces.Querying
 	public interface IQueryAdapter<TType, in TKey> 
 		where TType : class
 		where TKey : new()

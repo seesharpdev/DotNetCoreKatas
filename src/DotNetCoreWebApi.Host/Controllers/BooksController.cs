@@ -2,8 +2,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Interfaces;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreWebApi.Host.Controllers
 {
