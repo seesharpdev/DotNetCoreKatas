@@ -2,8 +2,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using DotNetCoreKatas.Command.Adapter.Commands;
 using DotNetCoreKatas.Command.Adapter.Contracts;
+using DotNetCoreKatas.Command.Contracts;
 using DotNetCoreKatas.Query.Contracts.Adapters;
 using DotNetCoreKatas.Query.Contracts.Models;
 

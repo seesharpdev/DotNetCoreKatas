@@ -8,6 +8,7 @@ using Xunit;
 using Moq;
 
 using DotNetCoreKatas.Command.Adapter.Contracts;
+using DotNetCoreKatas.Command.Contracts;
 using DotNetCoreKatas.Query.Contracts.Adapters;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Controllers;

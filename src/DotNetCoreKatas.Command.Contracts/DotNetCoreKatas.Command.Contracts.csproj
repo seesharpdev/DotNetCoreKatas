@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNetCoreKatas.Command.Contracts\DotNetCoreKatas.Command.Contracts.csproj" />
     <ProjectReference Include="..\DotNetCoreKatas.Core\DotNetCoreKatas.Core.csproj" />
   </ItemGroup>
 

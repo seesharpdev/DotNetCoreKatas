@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using DotNetCoreKatas.Command.Contracts;
 
 namespace DotNetCoreKatas.Command.Adapter.Contracts
 {

@@ -1,4 +1,4 @@
-﻿namespace DotNetCoreKatas.Command.Adapter.Contracts
+﻿namespace DotNetCoreKatas.Command.Contracts
 {
 	public class DeleteBookCommand : IDeleteBookCommand
 	{

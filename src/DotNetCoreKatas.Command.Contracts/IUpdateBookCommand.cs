@@ -1,6 +1,6 @@
 using DotNetCoreKatas.Core.Interfaces.Commanding;
 
-namespace DotNetCoreKatas.Command.Adapter.Contracts
+namespace DotNetCoreKatas.Command.Contracts
 {
 	public interface IUpdateBookCommand : IDomainCommand
 	{
