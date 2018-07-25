@@ -1,8 +1,8 @@
 ﻿using Xunit;
 
 using DotNetCoreKatas.Domain.Models;
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Mappers;
+using DotNetCoreKatas.Query.Adapter.Mappers;
+using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.QueryAdapter.UnitTests.Mappers
 {

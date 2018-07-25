@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
+using DotNetCoreKatas.Core.Interfaces;
 using DotNetCoreKatas.Domain.Models;
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Interfaces;
-using DotNetCoreKatas.QueryAdapter.Mappers;
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Persistence.Extensions;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 
-namespace DotNetCoreKatas.QueryAdapter.Adapters
+namespace DotNetCoreKatas.Query.Adapter.Adapters
 {
 	public class BooksQueryAdapter : QueryAdapter<BookReadModel, int>, IBooksQueryAdapter
 	{
+		// TODO: Break dependency on EF/ORM by introducing a QueryHandlerRegistry<IEnumerable<QueryHandler<T>>>
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
 
@@ -25,12 +24,12 @@ namespace DotNetCoreKatas.QueryAdapter.Adapters
 			_mapper = mapper;
 		}
 
-		public override Task<IEnumerable<BookReadModel>> GetAll()
+		public override async Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var models = _dbContext.Books.GatedAsNoTracking();
+			var models = await _dbContext.Books.AsNoTrackingQueryable();
 			var readModels = models.Select(m => _mapper.Map(m)).AsEnumerable();
 
-			return Task.FromResult(readModels);
+			return readModels;
 		}
 
 		public override async Task<BookReadModel> GetById(int id)

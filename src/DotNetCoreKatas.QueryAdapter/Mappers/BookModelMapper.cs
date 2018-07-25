@@ -1,7 +1,8 @@
-﻿using DotNetCoreKatas.Domain.Models;
-using DotNetCoreKatas.QueryAdapter.Contracts;
+﻿using DotNetCoreKatas.Core.Interfaces;
+using DotNetCoreKatas.Domain.Models;
+using DotNetCoreKatas.Query.Contracts.Models;
 
-namespace DotNetCoreKatas.QueryAdapter.Mappers
+namespace DotNetCoreKatas.Query.Adapter.Mappers
 {
 	public class BookModelMapper : IModelMapper<BookDomainModel, BookReadModel>
 	{

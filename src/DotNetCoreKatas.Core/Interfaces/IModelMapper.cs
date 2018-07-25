@@ -1,4 +1,4 @@
-﻿namespace DotNetCoreKatas.QueryAdapter.Mappers
+﻿namespace DotNetCoreKatas.Core.Interfaces
 {
 	public interface IModelMapper<in TSource, out TTarget>
 	{

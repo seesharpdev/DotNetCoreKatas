@@ -2,3 +2,4 @@
 /src/**/.vscode/**
 /src/**/bin/**
 /src/**/obj/**
+/src/**/*.DotSettings

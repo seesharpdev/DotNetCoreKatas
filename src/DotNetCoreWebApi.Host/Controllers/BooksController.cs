@@ -2,8 +2,10 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Interfaces;
+using DotNetCoreKatas.Command.Adapter.Commands;
+using DotNetCoreKatas.Command.Adapter.Contracts;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreWebApi.Host.Controllers
 {
@@ -13,15 +15,17 @@ namespace DotNetCoreWebApi.Host.Controllers
     {
 	    #region Private Members
 
-	    private readonly IBooksQueryAdapter _adapter;
+	    private readonly IBooksQueryAdapter _queryAdapter;
+	    private readonly IBooksCommandAdapter _commandAdapter;
 
-		#endregion
+	    #endregion
 
 	    #region Ctor's
 
-	    public BooksController(IBooksQueryAdapter adapter)
+	    public BooksController(IBooksQueryAdapter queryAdapter, IBooksCommandAdapter commandAdapter)
 	    {
-		    _adapter = adapter;
+		    _queryAdapter = queryAdapter;
+		    _commandAdapter = commandAdapter;
 	    }
 
 		#endregion
@@ -29,7 +33,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 	    [HttpGet]
         public async Task<ActionResult> Get()
         {
-			var books = await _adapter.GetAll();
+			var books = await _queryAdapter.GetAll();
 
 	        return Ok(books);
         }
@@ -42,16 +46,11 @@ namespace DotNetCoreWebApi.Host.Controllers
 		        return NotFound();
 	        }
 
-	        var book = await _adapter.GetById(id);
+	        var book = await _queryAdapter.GetById(id);
 
 	        return Ok(book);
         }
 
-		/// <summary>
-		/// The Post method should expect a 'ICreateBookCommand'.
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
         [HttpPost]
         public ActionResult Post([FromBody] BookReadModel model)
         {
@@ -60,17 +59,11 @@ namespace DotNetCoreWebApi.Host.Controllers
 		        return BadRequest(ModelState);
 	        }
 
-			// TODO: Implement the CommandService
+	        _commandAdapter.CreateBook(new CreateBookCommand { Id = model.Id });
 
 			return CreatedAtAction("Get", new { id = model }, model);
 		}
 
-		/// <summary>
-		/// The Put method should expect a 'IUpdateBookCommand'.
-		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="model"></param>
-		/// <returns></returns>
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] BookReadModel model)
         {
@@ -79,16 +72,11 @@ namespace DotNetCoreWebApi.Host.Controllers
 				return NoContent();
 	        }
 
-	        // TODO: Implement the CommandService
+	        _commandAdapter.UpdateBook(new UpdateBookCommand { Id = model.Id });
 
 			return BadRequest();
 		}
 
-		/// <summary>
-		/// The Delete method should expect a 'IDeleteBookCommand'.
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -97,7 +85,8 @@ namespace DotNetCoreWebApi.Host.Controllers
 		        return NotFound();
 	        }
 
-			// TODO: Implement the CommandService
+	        var command = new DeleteBookCommand { Id = id };
+	        _commandAdapter.DeleteBook(command);
 
 	        return Ok();
 		}

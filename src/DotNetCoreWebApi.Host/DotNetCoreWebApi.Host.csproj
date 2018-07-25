@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.QueryAdapter.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.Command.Adapter\DotNetCoreKatas.Command.Adapter.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj" />
   </ItemGroup>
 
 </Project>

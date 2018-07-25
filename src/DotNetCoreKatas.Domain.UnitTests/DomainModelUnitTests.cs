@@ -1,8 +1,9 @@
+using System.Linq;
 using System.Reflection;
 
 using Xunit;
 
-using DotNetCoreKatas.Core.Domain;
+using DotNetCoreKatas.Core.Interfaces;
 using DotNetCoreKatas.Domain.Models;
 
 namespace DotNetCoreKatas.Domain.UnitTests
@@ -20,7 +21,7 @@ namespace DotNetCoreKatas.Domain.UnitTests
 	    }
 
 	    [Fact]
-	    public void DomainModel_Should_Have_Protected_Ctor()
+	    public void DomainModel_Should_Only_Have_A_Public_And_A_Private_Ctors()
 	    {
 			// arrange
 		    const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static | 
@@ -36,13 +37,13 @@ namespace DotNetCoreKatas.Domain.UnitTests
 		}
 
 		[Fact]
-		public void DomainModel_Should_Inherit_From_AggregateRoot()
+		public void DomainModel_Should_Implement_IAggregateRoot()
         {
 			// Act
 			var domainModel = Factory.New(1);
 
 			// Assert
-			Assert.Equal(typeof(AggregateRoot<int>), domainModel.GetType().BaseType);
+			Assert.Equal(typeof(IAggregateRoot<int>), domainModel.GetType().GetInterfaces().FirstOrDefault());
         }
     }
 }

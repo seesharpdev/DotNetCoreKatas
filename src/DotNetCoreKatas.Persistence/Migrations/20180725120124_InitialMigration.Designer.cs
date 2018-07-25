@@ -2,14 +2,16 @@
 using DotNetCoreKatas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotNetCoreKatas.Persistence.Migrations
 {
     [DbContext(typeof(DotNetCoreKatasDbContext))]
-    partial class DotNetCoreKatasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180725120124_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

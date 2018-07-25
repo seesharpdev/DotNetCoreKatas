@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Xunit;
 using Moq;
 
-using DotNetCoreKatas.QueryAdapter.Interfaces;
-using DotNetCoreKatas.QueryAdapter.Contracts;
+using DotNetCoreKatas.Command.Adapter.Contracts;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Controllers;
 
 namespace DotNetCoreWebApi.Host.UnitTests
@@ -16,7 +17,8 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	[ExcludeFromCodeCoverage]
     public class BooksControllerUnitTests
 	{
-		private static readonly Mock<IBooksQueryAdapter> AdapterMock = new Mock<IBooksQueryAdapter>();
+		private static readonly Mock<IBooksQueryAdapter> QueryAdapterMock = new Mock<IBooksQueryAdapter>();
+		private static readonly Mock<IBooksCommandAdapter> CommandAdapterMock = new Mock<IBooksCommandAdapter>();
 
 		private static class Factory
 	    {
@@ -24,13 +26,13 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			{
 				IEnumerable<BookReadModel> bookReadModels = new[] { new BookReadModel { Id = 1 } };
 
-				AdapterMock.Setup(_ => _.GetAll())
+				QueryAdapterMock.Setup(_ => _.GetAll())
 					.Returns(Task.FromResult(bookReadModels));
 
-				AdapterMock.Setup(_ => _.GetById(It.IsAny<int>()))
+				QueryAdapterMock.Setup(_ => _.GetById(It.IsAny<int>()))
 					.ReturnsAsync(bookReadModels.FirstOrDefault);
 
-				return new BooksController(AdapterMock.Object);
+				return new BooksController(QueryAdapterMock.Object, CommandAdapterMock.Object);
 		    }
 	    }
 
@@ -124,12 +126,15 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			// Arrange
 		    var controller = Factory.New();
 		    var model = new BookReadModel { Id = 1 };
+		    CommandAdapterMock.Setup(_ => _.CreateBook(It.IsAny<ICreateBookCommand>()))
+			    .Returns(Task.CompletedTask);
 
-		    // Act
-		    var response = controller.Post(model);
+			// Act
+			var response = controller.Post(model);
 
 		    // Assert
 		    Assert.IsType<CreatedAtActionResult>(response);
+			CommandAdapterMock.VerifyAll();
 	    }
 
 	    [Fact]
@@ -138,9 +143,11 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			// Arrange
 			var controller = Factory.New();
 		    var model = new BookReadModel { Id = 1 };
+		    CommandAdapterMock.Setup(_ => _.CreateBook(It.IsAny<ICreateBookCommand>()))
+			    .Returns(Task.CompletedTask);
 
-		    // Act
-		    var response = controller.Post(model) as CreatedAtActionResult;
+			// Act
+			var response = controller.Post(model) as CreatedAtActionResult;
 		    var book = response?.Value as BookReadModel;
 
 			// Assert
@@ -167,26 +174,16 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			// Arrange
 		    var controller = Factory.New();
 			const int existingId = 1;
+		    CommandAdapterMock.Setup(_ => _.DeleteBook(It.IsAny<IDeleteBookCommand>()))
+			    .Returns(Task.CompletedTask);
 
 		    // Act
 		    var response = controller.Delete(existingId);
 
 		    // Assert
 		    Assert.IsType<OkResult>(response);
-	    }
+		    CommandAdapterMock.VerifyAll();
 
-		[Fact(Skip = "Service need to be mocked and expectations verified.")]
-		public void Remove_ExistingGuidPassed_RemovesOneItem()
-	    {
-			// Arrange
-		    var controller = Factory.New();
-			const int existingId = 1;
-
-		    // Act
-		    var okResponse = controller.Delete(existingId);
-
-			// Assert
-			//Assert.Equal(2, _service.GetAllItems().Count());
 		}
 	}
 }

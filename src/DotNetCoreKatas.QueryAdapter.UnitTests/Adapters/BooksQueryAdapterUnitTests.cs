@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
+using DotNetCoreKatas.Core.Interfaces;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Persistence;
-using DotNetCoreKatas.QueryAdapter.Adapters;
-using DotNetCoreKatas.QueryAdapter.Contracts;
-using DotNetCoreKatas.QueryAdapter.Interfaces;
-using DotNetCoreKatas.QueryAdapter.Mappers;
+using DotNetCoreKatas.Query.Adapter.Adapters;
+using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.QueryAdapter.UnitTests.Adapters
 {

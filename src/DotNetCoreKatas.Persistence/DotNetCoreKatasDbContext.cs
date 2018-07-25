@@ -4,11 +4,7 @@ using DotNetCoreKatas.Domain.Models;
 
 namespace DotNetCoreKatas.Persistence
 {
-	public interface IDotNetCoreKatasDbContext
-	{
-		DbSet<BookDomainModel> Books { get; set; }
-	}
-
+	// TODO: Introduce DbContextFactory
 	public class DotNetCoreKatasDbContext : DbContext, IDotNetCoreKatasDbContext
 	{
 		public virtual DbSet<BookDomainModel> Books { get; set; }
@@ -20,9 +16,16 @@ namespace DotNetCoreKatas.Persistence
 
 	    protected override void OnModelCreating(ModelBuilder modelBuilder)
 	    {
-			// Define Composite Keyes:
-		    //modelBuilder.Entity<BookDomainModel>()
-			   // .HasKey(b => new { b.Id });
+			// TODO: Apply Class Maps
+
+			// Define (Composite) Keyes
+			modelBuilder.Entity<BookDomainModel>()
+				.HasKey(b => b.Id);
+			
+		    modelBuilder.Entity<BookDomainModel>()
+			    .Property(b => b.Id)
+			    .HasField("_id")
+			    .UsePropertyAccessMode(PropertyAccessMode.Field);
 		}
     }
 }
