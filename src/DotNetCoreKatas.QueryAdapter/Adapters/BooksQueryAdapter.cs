@@ -24,12 +24,12 @@ namespace DotNetCoreKatas.Query.Adapter.Adapters
 			_mapper = mapper;
 		}
 
-		public override Task<IEnumerable<BookReadModel>> GetAll()
+		public override async Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var models = _dbContext.Books.AsNoTrackingQueryable();
+			var models = await _dbContext.Books.AsNoTrackingQueryable();
 			var readModels = models.Select(m => _mapper.Map(m)).AsEnumerable();
 
-			return Task.FromResult(readModels);
+			return readModels;
 		}
 
 		public override async Task<BookReadModel> GetById(int id)
