@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
@@ -10,7 +11,8 @@ namespace DotNetCoreKatas.Persistence.Extensions
 	/// </summary>
 	public static class QueryableExtensions
 	{
-		// TODO: Make this async
+		// TODO: Trying to make this extension method asynchronous.
+		//public static IQueryable<T> AsNoTrackingQueryable<T>(this IQueryable<T> source) where T : class
 		public static async Task<IQueryable<T>> AsNoTrackingQueryable<T>(this IQueryable<T> source) where T : class
 		{
 			if (source.Provider is EntityQueryProvider)

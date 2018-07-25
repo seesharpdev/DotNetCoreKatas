@@ -16,8 +16,6 @@ namespace DotNetCoreKatas.QueryAdapter.UnitTests.Adapters
 {
 	public class BooksQueryAdapterUnitTests
 	{
-		#region Private Members
-
 		private static readonly Mock<DotNetCoreKatasDbContext> DbContextMock = new Mock<DotNetCoreKatasDbContext>();
 		private static readonly Mock<DbSet<BookDomainModel>> DbSetMock = new Mock<DbSet<BookDomainModel>>(MockBehavior.Strict);
 		private static readonly Mock<IModelMapper<BookDomainModel, BookReadModel>> MapperMock = 
@@ -55,9 +53,7 @@ namespace DotNetCoreKatas.QueryAdapter.UnitTests.Adapters
 				return new BooksQueryAdapter(DbContextMock.Object, MapperMock.Object);
 		    }
 		}
-
-		#endregion
-
+		
 	    [Fact]
 	    public void QueryAdapter_Should_ReturnAllItems()
 	    {

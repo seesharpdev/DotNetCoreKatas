@@ -18,16 +18,20 @@ namespace DotNetCoreKatas.Query.Adapter.Adapters
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
 
-		public BooksQueryAdapter(IDotNetCoreKatasDbContext dbContext, IModelMapper<BookDomainModel, BookReadModel> mapper)
+		public BooksQueryAdapter(
+			IDotNetCoreKatasDbContext dbContext, 
+			IModelMapper<BookDomainModel, BookReadModel> mapper)
 		{
 			_dbContext = dbContext;
 			_mapper = mapper;
 		}
 
+		// TODO: Implement and inject a IQueryHandlerRegistry to resolve GetAllBooksQueryHandler and execute it.
 		public override async Task<IEnumerable<BookReadModel>> GetAll()
 		{
 			var models = await _dbContext.Books.AsNoTrackingQueryable();
-			var readModels = models.Select(m => _mapper.Map(m)).AsEnumerable();
+			var readModels = models.Select(m => _mapper.Map(m))
+				.AsEnumerable();
 
 			return readModels;
 		}
