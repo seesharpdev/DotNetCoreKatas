@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.QueryAdapter.Contracts;
 using DotNetCoreKatas.QueryAdapter.Interfaces;
@@ -16,6 +14,7 @@ namespace DotNetCoreKatas.QueryAdapter.Adapters
 {
 	public class BooksQueryAdapter : QueryAdapter<BookReadModel, int>, IBooksQueryAdapter
 	{
+		// TODO: Break dependency on EF/ORM by introducing a QueryHandlerRegistry<IEnumerable<QueryHandler<T>>>
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
 
@@ -27,7 +26,7 @@ namespace DotNetCoreKatas.QueryAdapter.Adapters
 
 		public override Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var models = _dbContext.Books.GatedAsNoTracking();
+			var models = _dbContext.Books.AsNoTrackingQueryable();
 			var readModels = models.Select(m => _mapper.Map(m)).AsEnumerable();
 
 			return Task.FromResult(readModels);
