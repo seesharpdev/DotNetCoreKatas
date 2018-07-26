@@ -33,7 +33,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		    DbContextMock.Setup(c => c.Books)
 			    .Returns(DbSetMock.Object);
 
-		    MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
+			MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
 			    .Returns(new BookReadModel { Id = 1 });
 		}
 

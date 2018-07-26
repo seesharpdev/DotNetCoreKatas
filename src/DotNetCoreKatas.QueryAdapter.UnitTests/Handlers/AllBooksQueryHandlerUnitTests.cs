@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Autofac.Extras.Moq;
+using DotNetCoreKatas.Persistence;
 using Xunit;
 
 using DotNetCoreKatas.Query.Adapter.Handlers;
@@ -21,17 +23,23 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		[Fact]
 	    public void AllBooksQueryHandler_Should_ReturnAllItems()
 	    {
-			// Arrange
-		    var handler = new AllBooksQueryHandler(_fixture.DbContextMock.Object, _fixture.MapperMock.Object);
-		    var query = new AllBooksQuery();
+		    using (var mock = AutoMock.GetStrict())
+		    {
+				// Arrange
+			    mock.Provide<IDotNetCoreKatasDbContext>(_fixture.DbContextMock.Object);
+			    mock.Provide(_fixture.MapperMock.Object);
 
-		    // Act
-		    var result = handler.Handle(query);
+				var handler = mock.Create<AllBooksQueryHandler>();
+				var query = new AllBooksQuery();
 
-			// Assert
-		    Assert.NotNull(result);
-			var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result);
-			Assert.Equal(3, bookCount.Count());
+			    // Act
+			    var result = handler.Handle(query);
+
+			    // Assert
+			    Assert.NotNull(result);
+			    var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result);
+			    Assert.Equal(3, bookCount.Count());
+		    }
 	    }
     }
 }

@@ -1,5 +1,10 @@
-﻿using Xunit;
+﻿using System.Linq;
 
+using Autofac.Extras.Moq;
+using Xunit;
+using Moq;
+
+using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Query.Adapter.Handlers;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
@@ -16,18 +21,28 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		}
 
 	    [Fact]
-	    public void GetBookById_Should_Handle()
+	    public void GetBookById_Should_ReturnTheCorrectItem()
 	    {
-		    // Arrange
-		    var handler = new BookByIdQueryHandler(_fixture.DbContextMock.Object, _fixture.MapperMock.Object);
-			var query = new BookByIdQuery { Id = 1 };
+		    using (var mock = AutoMock.GetStrict())
+		    {
+				// Arrange
+				_fixture.DbSetMock
+				    .Setup(_ => _.Find(It.IsAny<object[]>()))
+				    .Returns(_fixture.BookDomainModels.FirstOrDefault());
 
-		    // Act
-		    var result = handler.Handle(query);
+				mock.Provide<IDotNetCoreKatasDbContext>(_fixture.DbContextMock.Object);
+				mock.Provide(_fixture.MapperMock.Object);
 
-		    // Assert
-		    Assert.NotNull(result);
-		    Assert.IsAssignableFrom<BookReadModel>(result);
+				var handler = mock.Create<BookByIdQueryHandler>();
+				var query = new BookByIdQuery { Id = 1 };
+
+			    // Act
+			    var result = handler.Handle(query);
+
+			    // Assert
+			    Assert.NotNull(result);
+			    Assert.IsAssignableFrom<BookReadModel>(result);
+		    }
 	    }
 	}
 }
