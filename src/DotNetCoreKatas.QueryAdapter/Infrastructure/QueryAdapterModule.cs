@@ -36,8 +36,8 @@ namespace DotNetCoreKatas.Query.Adapter.Infrastructure
 				.Where(t => t.Name.EndsWith("Handler"))
 				.AsImplementedInterfaces();
 
-			builder.RegisterType<GetAllBooksQueryHandler>()
-				.As<IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>>>();
+			builder.RegisterType<AllBooksQueryHandler>()
+				.As<IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>>();
 		}
 
 		private static void RegisterMappers(ContainerBuilder builder)

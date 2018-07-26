@@ -28,8 +28,8 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 			    builder.RegisterType<BookModelMapper>()
 				    .As<IModelMapper<BookDomainModel, BookReadModel>>();
 
-			    builder.RegisterType<GetAllBooksQueryHandler>()
-				    .As<IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>>>();
+			    builder.RegisterType<AllBooksQueryHandler>()
+				    .As<IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>>();
 
 				var container = builder.Build();
 				
@@ -43,7 +43,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 		    IQueryProcessor queryProcessor = Factory.New();
 
 		    // Act
-		    var result = queryProcessor.Process(new GetAllBooksQuery());
+		    var result = queryProcessor.Process(new AllBooksQuery());
 
 			// Assert
 			Assert.NotNull(result);

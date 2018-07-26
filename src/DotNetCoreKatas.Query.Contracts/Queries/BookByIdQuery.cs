@@ -3,7 +3,7 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Contracts.Queries
 {
-	public class GetBookByIdQuery : IQuery<BookReadModel>
+	public class BookByIdQuery : IQuery<BookReadModel>
 	{
 		public int Id { get; set; }
 	}

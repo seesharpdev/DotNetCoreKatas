@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Moq;
 using Xunit;
+using Moq;
 
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Query.Adapter.Handlers;
-using DotNetCoreKatas.Query.Adapter.Mappers;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 {
-	public class GetAllBooksQueryHandlerUnitTests : QueryHandlerUnitTests
+	public class BookByIdQueryHandlerUnitTests : QueryHandlerUnitTests
 	{
-		private static class Factory
+	    private static class Factory
 	    {
-		    public static GetAllBooksQueryHandler New()
+		    internal static IQueryHandler<BookByIdQuery, BookReadModel> New()
 		    {
 			    var data = new List<BookDomainModel>
 				    {
@@ -34,33 +33,29 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 
 			    DbContextMock.Setup(c => c.Books)
 				    .Returns(DbSetMock.Object);
-
-			    DbSetMock.Setup(_ => _.FindAsync(It.IsAny<object[]>()))
-				    .ReturnsAsync(data.FirstOrDefault());
-
 			    DbSetMock.Setup(_ => _.Find(It.IsAny<object[]>()))
 				    .Returns(data.FirstOrDefault());
 
-				MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
-					.Returns(new BookReadModel { Id = 1 });
+			    MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
+				    .Returns(new BookReadModel { Id = 1 });
 
-				return new GetAllBooksQueryHandler(DbContextMock.Object, new BookModelMapper());
+				return new BookByIdQueryHandler(DbContextMock.Object, MapperMock.Object);
 		    }
 		}
 
 	    [Fact]
-	    public void GetAllBooks_Should_Handle()
+	    public void GetBookById_Should_Handle()
 	    {
-			// Arrange
-			IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>> handler = Factory.New();
+		    // Arrange
+		    var handler = Factory.New();
+		    var query = new BookByIdQuery { Id = 1 };
 
 		    // Act
-		    var result = handler.Handle(new GetAllBooksQuery());
+		    var result = handler.Handle(query);
 
-			// Assert
+		    // Assert
 		    Assert.NotNull(result);
-			var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result);
-			Assert.Equal(3, bookCount.Count());
+		    Assert.IsAssignableFrom<BookReadModel>(result);
 	    }
-    }
+	}
 }

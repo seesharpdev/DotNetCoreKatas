@@ -1,36 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using DotNetCoreKatas.Core.Interfaces;
+﻿using DotNetCoreKatas.Core.Interfaces;
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Persistence;
-using DotNetCoreKatas.Persistence.Extensions;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class GetAllBooksQueryHandler : IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>>
+	public class BookByIdQueryHandler : IQueryHandler<BookByIdQuery, BookReadModel>
 	{
 		private readonly IDotNetCoreKatasDbContext _dbContext;
 		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
 
-		public GetAllBooksQueryHandler(
+		public BookByIdQueryHandler(
 			IDotNetCoreKatasDbContext dbContext, 
 			IModelMapper<BookDomainModel, BookReadModel> mapper)
 		{
 			_dbContext = dbContext;
 			_mapper = mapper;
 		}
-		
-		public IEnumerable<BookReadModel> Handle(GetAllBooksQuery query)
-		{
-			var models = _dbContext.Books.AsNoTrackingQueryable().Result;
-			var books = models.Select(m => _mapper.Map(m))
-				.AsEnumerable();
 
-			return books;
+		public BookReadModel Handle(BookByIdQuery query)
+		{
+			var model = _dbContext.Books.Find(query.Id);
+			var book = _mapper.Map(model);
+
+			return book;
 		}
 	}
 }

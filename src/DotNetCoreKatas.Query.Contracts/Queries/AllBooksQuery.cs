@@ -5,7 +5,7 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Contracts.Queries
 {
-	public class GetAllBooksQuery : IQuery<IEnumerable<BookReadModel>>
+	public class AllBooksQuery : IQuery<IEnumerable<BookReadModel>>
 	{
 	}
 }

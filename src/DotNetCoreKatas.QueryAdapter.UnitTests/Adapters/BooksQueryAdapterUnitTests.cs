@@ -14,7 +14,7 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 {
-	public class BooksQueryAdapterUnitTests //: QueryHandlerUnitTests
+	public class BooksQueryAdapterUnitTests
 	{
 		private static readonly Mock<DotNetCoreKatasDbContext> DbContextMock = new Mock<DotNetCoreKatasDbContext>();
 		private static readonly Mock<DbSet<BookDomainModel>> DbSetMock = new Mock<DbSet<BookDomainModel>>(MockBehavior.Strict);

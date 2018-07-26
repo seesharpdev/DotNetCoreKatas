@@ -30,7 +30,7 @@ namespace DotNetCoreKatas.Query.Adapter.Adapters
 
 		public async Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var query = new GetAllBooksQuery();
+			var query = new AllBooksQuery();
 			var books = await Task.FromResult(_queryProcessor.Process(query));
 
 			return books;
