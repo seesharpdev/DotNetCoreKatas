@@ -1,47 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Moq;
 using Xunit;
 
-using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Query.Adapter.Handlers;
-using DotNetCoreKatas.Query.Adapter.Mappers;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 {
-	public class AllBooksQueryHandlerUnitTests : QueryHandlerUnitTests
+	public class AllBooksQueryHandlerUnitTests : IClassFixture<QueryHandlersFixture>
 	{
-		private static class Factory
-	    {
-		    public static AllBooksQueryHandler New()
-		    {
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Provider).Returns(BookDomainModels.Provider);
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Expression).Returns(BookDomainModels.Expression);
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.ElementType).Returns(BookDomainModels.ElementType);
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.GetEnumerator())
-				    .Returns(() => BookDomainModels.GetEnumerator());
+		private readonly QueryHandlersFixture _fixture;
 
-			    DbContextMock.Setup(c => c.Books)
-				    .Returns(DbSetMock.Object);
-				
-				MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
-					.Returns(new BookReadModel { Id = 1 });
-
-				return new AllBooksQueryHandler(DbContextMock.Object, new BookModelMapper());
-		    }
+		public AllBooksQueryHandlerUnitTests(QueryHandlersFixture fixture)
+		{
+			_fixture = fixture;
 		}
 
-	    [Fact]
+		[Fact]
 	    public void AllBooksQueryHandler_Should_ReturnAllItems()
 	    {
 			// Arrange
-		    AllBooksQueryHandler handler = Factory.New();
+		    var handler = new AllBooksQueryHandler(_fixture.DbContextMock.Object, _fixture.MapperMock.Object);
+		    var query = new AllBooksQuery();
 
 		    // Act
-		    var result = handler.Handle(new AllBooksQuery());
+		    var result = handler.Handle(query);
 
 			// Assert
 		    Assert.NotNull(result);

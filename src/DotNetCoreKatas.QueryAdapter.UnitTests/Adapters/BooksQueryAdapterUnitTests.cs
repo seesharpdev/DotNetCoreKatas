@@ -12,14 +12,14 @@ using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 {
-	public class BooksQueryAdapterUnitTests
+	public class BooksQueryAdapterUnitTests : IClassFixture<BooksQueryAdapterFixture>
 	{
-		private static readonly IEnumerable<BookReadModel> BookReadModels = new[]
-			{
-				new BookReadModel { Id = 1 },
-				new BookReadModel { Id = 2 },
-				new BookReadModel { Id = 3 }
-			};
+		private readonly BooksQueryAdapterFixture _fixture;
+
+		public BooksQueryAdapterUnitTests(BooksQueryAdapterFixture fixture)
+		{
+			_fixture = fixture;
+		}
 		
 	    [Fact]
 	    public void QueryAdapter_Should_ReturnAllItems()
@@ -29,7 +29,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 				// Arrange
 				mock.Mock<IQueryProcessor>()
 					.Setup(x => x.Process(It.IsAny<AllBooksQuery>()))
-					.Returns(BookReadModels);
+					.Returns(_fixture.BookReadModels);
 
 				var adapter = mock.Create<BooksQueryAdapter>();
 
@@ -53,7 +53,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 				const int bookId = 1;
 				mock.Mock<IQueryProcessor>()
 					.Setup(x => x.Process(It.Is<BookByIdQuery>(q => q.Id == 1)))
-					.Returns(BookReadModels.FirstOrDefault(b => b.Id == 1));
+					.Returns(_fixture.BookReadModels.FirstOrDefault(b => b.Id == 1));
 
 				var adapter = mock.Create<BooksQueryAdapter>();
 
@@ -77,7 +77,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 				const int bookId = 2;
 				mock.Mock<IQueryProcessor>()
 					.Setup(x => x.Process(It.IsAny<FindBookQuery>()))
-					.Returns(BookReadModels.FirstOrDefault(b => b.Id == bookId));
+					.Returns(_fixture.BookReadModels.FirstOrDefault(b => b.Id == bookId));
 
 				var adapter = mock.Create<BooksQueryAdapter>();
 
@@ -91,6 +91,5 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 				mock.Mock<IQueryProcessor>().VerifyAll();
 			}
 		}
-
 	}
 }
