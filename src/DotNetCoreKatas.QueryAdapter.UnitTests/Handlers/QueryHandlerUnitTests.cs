@@ -1,5 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -20,6 +21,13 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		    new Mock<IModelMapper<BookDomainModel, BookReadModel>>();
 
 		private static readonly Mock<IQueryProcessor> QueryProcessor = new Mock<IQueryProcessor>();
+
+	    protected static readonly IQueryable<BookDomainModel> BookDomainModels = new List<BookDomainModel>
+		    {
+			    new BookDomainModel(1),
+			    new BookDomainModel(2),
+			    new BookDomainModel(3)
+		    }.AsQueryable();
 
 	    protected static Mock<DotNetCoreKatasDbContext> DbContextMock => DbContext;
 	    protected static Mock<DbSet<BookDomainModel>> DbSetMock => DbSet;

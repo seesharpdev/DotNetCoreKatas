@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using Xunit;
 using Moq;
 
-using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Query.Adapter.Handlers;
 using DotNetCoreKatas.Query.Contracts.Models;
@@ -16,25 +14,19 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 	{
 	    private static class Factory
 	    {
-		    internal static IQueryHandler<BookByIdQuery, BookReadModel> New()
+		    internal static BookByIdQueryHandler New()
 		    {
-			    var data = new List<BookDomainModel>
-				    {
-					    new BookDomainModel(1),
-					    new BookDomainModel(2),
-					    new BookDomainModel(3)
-				    }.AsQueryable();
-
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Provider).Returns(data.Provider);
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Expression).Returns(data.Expression);
-			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Provider).Returns(BookDomainModels.Provider);
+			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.Expression).Returns(BookDomainModels.Expression);
+			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.ElementType).Returns(BookDomainModels.ElementType);
 			    DbSetMock.As<IQueryable<BookDomainModel>>().Setup(m => m.GetEnumerator())
-				    .Returns(() => data.GetEnumerator());
+				    .Returns(() => BookDomainModels.GetEnumerator());
 
 			    DbContextMock.Setup(c => c.Books)
 				    .Returns(DbSetMock.Object);
+
 			    DbSetMock.Setup(_ => _.Find(It.IsAny<object[]>()))
-				    .Returns(data.FirstOrDefault());
+				    .Returns(BookDomainModels.FirstOrDefault());
 
 			    MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
 				    .Returns(new BookReadModel { Id = 1 });
