@@ -7,23 +7,19 @@ using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class FindBookQueryHandler : IQueryHandler<FindBookQuery, BookReadModel>
+	public class FindBookQueryHandler : QueryHandlerBase, IQueryHandler<FindBookQuery, BookReadModel>
 	{
-		private readonly IDotNetCoreKatasDbContext _dbContext;
-		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
-
 		public FindBookQueryHandler(
 			IDotNetCoreKatasDbContext dbContext,
 			IModelMapper<BookDomainModel, BookReadModel> mapper)
+		: base(dbContext, mapper)
 		{
-			_dbContext = dbContext;
-			_mapper = mapper;
 		}
 
 		public BookReadModel Handle(FindBookQuery query)
 		{
-			var model = _dbContext.Books.Find(query.Predicate);
-			var book = _mapper.Map(model);
+			var model = DbContext.Books.Find(query.Predicate);
+			var book = Mapper.Map(model);
 
 			return book;
 		}

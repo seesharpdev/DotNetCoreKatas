@@ -11,23 +11,19 @@ using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class AllBooksQueryHandler : IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>
+	public class AllBooksQueryHandler : QueryHandlerBase, IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>
 	{
-		private readonly IDotNetCoreKatasDbContext _dbContext;
-		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
-
 		public AllBooksQueryHandler(
 			IDotNetCoreKatasDbContext dbContext, 
 			IModelMapper<BookDomainModel, BookReadModel> mapper)
+			: base(dbContext, mapper)
 		{
-			_dbContext = dbContext;
-			_mapper = mapper;
 		}
 		
 		public IEnumerable<BookReadModel> Handle(AllBooksQuery query)
 		{
-			var models = _dbContext.Books.AsNoTrackingQueryable().Result;
-			var books = models.Select(m => _mapper.Map(m))
+			var models = DbContext.Books.AsNoTrackingQueryable().Result;
+			var books = models.Select(m => Mapper.Map(m))
 				.AsEnumerable();
 
 			return books;
