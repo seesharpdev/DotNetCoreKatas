@@ -5,7 +5,6 @@ using Autofac;
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Adapter.Adapters;
 using DotNetCoreKatas.Query.Adapter.Handlers;
-using DotNetCoreKatas.Query.Contracts.Adapters;
 using DotNetCoreKatas.Query.Contracts.Infrastructure;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;
@@ -28,7 +27,7 @@ namespace DotNetCoreKatas.Query.Adapter.Infrastructure
 		private static void RegisterAdapters(ContainerBuilder builder)
 		{
 			builder.RegisterType<BooksQueryAdapter>()
-				.As<IBooksQueryAdapter>();
+				.As<IQueryAdapter<BookReadModel, int>>();
 		}
 
 		private static void RegisterHandlers(ContainerBuilder builder)
@@ -41,7 +40,7 @@ namespace DotNetCoreKatas.Query.Adapter.Infrastructure
 				.As<IQueryHandler<GetAllBooksQuery, IEnumerable<BookReadModel>>>();
 		}
 
-		private void RegisterMappers(ContainerBuilder builder)
+		private static void RegisterMappers(ContainerBuilder builder)
 		{
 			builder.RegisterAssemblyTypes(typeof(QueryAdapterModule).Assembly)
 				.Where(t => t.Name.EndsWith("Mapper"))

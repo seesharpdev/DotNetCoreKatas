@@ -6,24 +6,26 @@ using Moq;
 using Xunit;
 
 using DotNetCoreKatas.Core.Interfaces;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Query.Adapter.Adapters;
-using DotNetCoreKatas.Query.Contracts.Adapters;
 using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 {
-	public class BooksQueryAdapterUnitTests
+	public class BooksQueryAdapterUnitTests //: QueryHandlerUnitTests
 	{
 		private static readonly Mock<DotNetCoreKatasDbContext> DbContextMock = new Mock<DotNetCoreKatasDbContext>();
 		private static readonly Mock<DbSet<BookDomainModel>> DbSetMock = new Mock<DbSet<BookDomainModel>>(MockBehavior.Strict);
-		private static readonly Mock<IModelMapper<BookDomainModel, BookReadModel>> MapperMock = 
+		private static readonly Mock<IModelMapper<BookDomainModel, BookReadModel>> MapperMock =
 			new Mock<IModelMapper<BookDomainModel, BookReadModel>>();
+
+		private static readonly Mock<IQueryProcessor> QueryProcessorMock = new Mock<IQueryProcessor>();
 
 		private static class Factory
 	    {
-			internal static IBooksQueryAdapter New()
+			internal static IQueryAdapter<BookReadModel, int> New()
 		    {
 			    var data = new List<BookDomainModel>
 				    {
@@ -50,7 +52,10 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 				MapperMock.Setup(_ => _.Map(It.Is<BookDomainModel>(model => model.Id == 1)))
 				    .Returns(new BookReadModel { Id = 1 });
 
-				return new BooksQueryAdapter(DbContextMock.Object, MapperMock.Object);
+			    QueryProcessorMock.Setup(_ => _.Process(It.IsAny<IQuery<IEnumerable<BookReadModel>>>()))
+				    .Returns(new[] { new BookReadModel { Id = 1 }, new BookReadModel { Id = 2 }, new BookReadModel { Id = 3 } });
+
+				return new BooksQueryAdapter(DbContextMock.Object, MapperMock.Object, QueryProcessorMock.Object);
 		    }
 		}
 		
@@ -58,7 +63,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 	    public void QueryAdapter_Should_ReturnAllItems()
 	    {
 			// Arrange
-		    IBooksQueryAdapter adapter = Factory.New();
+		    var adapter = Factory.New();
 
 		    // Act
 		    var response = adapter.GetAll();
@@ -73,7 +78,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 	    public void QueryAdapter_Should_ReturnById()
 	    {
 			// Arrange
-		    IBooksQueryAdapter adapter = Factory.New();
+		    var adapter = Factory.New();
 		    const int bookId = 1;
 
 		    // Act
@@ -89,7 +94,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Adapters
 		public void QueryAdapter_Should_FindBy()
 		{
 			// Arrange
-			IBooksQueryAdapter adapter = Factory.New();
+			var adapter = Factory.New();
 			const int bookId = 1;
 
 			// Act

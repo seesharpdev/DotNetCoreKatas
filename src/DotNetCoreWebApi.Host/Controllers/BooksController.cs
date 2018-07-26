@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using DotNetCoreKatas.Command.Adapter.Contracts;
 using DotNetCoreKatas.Command.Contracts;
-using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreWebApi.Host.Controllers
@@ -15,14 +15,14 @@ namespace DotNetCoreWebApi.Host.Controllers
     {
 	    #region Private Members
 
-	    private readonly IBooksQueryAdapter _queryAdapter;
+	    private readonly IQueryAdapter<BookReadModel, int> _queryAdapter;
 	    private readonly IBooksCommandAdapter _commandAdapter;
 
 	    #endregion
 
 	    #region Ctor's
 
-	    public BooksController(IBooksQueryAdapter queryAdapter, IBooksCommandAdapter commandAdapter)
+	    public BooksController(IQueryAdapter<BookReadModel, int> queryAdapter, IBooksCommandAdapter commandAdapter)
 	    {
 		    _queryAdapter = queryAdapter;
 		    _commandAdapter = commandAdapter;

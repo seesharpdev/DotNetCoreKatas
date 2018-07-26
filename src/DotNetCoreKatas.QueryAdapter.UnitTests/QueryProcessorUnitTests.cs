@@ -20,8 +20,8 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 	    {
 		    public static QueryProcessor New()
 		    {
+				// TODO: Introduce Package Autofac.Integration.Moq
 			    var builder = new ContainerBuilder();
-
 			    builder.RegisterType<DotNetCoreKatasDbContext>()
 				    .As<IDotNetCoreKatasDbContext>();
 
@@ -37,14 +37,13 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 		    }
 		}
 	    [Fact]
-	    public void QueryHandler_Should_Resolve_Handler()
+	    public void QueryProcessor_Should_Process_Query()
 	    {
 			// Arrange
 		    IQueryProcessor queryProcessor = Factory.New();
-		    IGetAllBooksQuery query = new GetAllBooksQuery();
 
 		    // Act
-		    var result = queryProcessor.Process(query);
+		    var result = queryProcessor.Process(new GetAllBooksQuery());
 
 			// Assert
 			Assert.NotNull(result);
