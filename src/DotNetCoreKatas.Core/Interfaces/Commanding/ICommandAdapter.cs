@@ -1,9 +1,9 @@
 namespace DotNetCoreKatas.Core.Interfaces.Commanding
 {
 	/// <summary>
-	/// Marker interface for a Domain Command.
+	/// Marker interface for a Command Adapter.
 	/// </summary>
-	public interface IDomainCommand
+	public interface ICommandAdapter
 	{
 	}
 }

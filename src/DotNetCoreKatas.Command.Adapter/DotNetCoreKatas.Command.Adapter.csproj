@@ -1,11 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+	<TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotNetCoreKatas.Command.Contracts\DotNetCoreKatas.Command.Contracts.csproj" />
     <ProjectReference Include="..\DotNetCoreKatas.Core\DotNetCoreKatas.Core.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.Domain\DotNetCoreKatas.Domain.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.Persistence\DotNetCoreKatas.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
   </ItemGroup>
 
 </Project>

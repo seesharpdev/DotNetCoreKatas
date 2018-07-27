@@ -1,51 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-using DotNetCoreKatas.Core.Interfaces;
-using DotNetCoreKatas.Domain.Models;
-using DotNetCoreKatas.Persistence;
-using DotNetCoreKatas.Persistence.Extensions;
-using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
+using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Adapters
 {
-	public class BooksQueryAdapter : QueryAdapter<BookReadModel, int>, IBooksQueryAdapter
+	public class BooksQueryAdapter : IQueryAdapter<BookReadModel, int>
 	{
-		// TODO: Break dependency on EF/ORM by introducing a QueryHandlerRegistry<IEnumerable<QueryHandler<T>>>
-		private readonly IDotNetCoreKatasDbContext _dbContext;
-		private readonly IModelMapper<BookDomainModel, BookReadModel> _mapper;
+		private readonly IQueryProcessor _queryProcessor;
 
-		public BooksQueryAdapter(IDotNetCoreKatasDbContext dbContext, IModelMapper<BookDomainModel, BookReadModel> mapper)
+		public BooksQueryAdapter(IQueryProcessor queryProcessor)
 		{
-			_dbContext = dbContext;
-			_mapper = mapper;
+			_queryProcessor = queryProcessor;
 		}
 
-		public override async Task<IEnumerable<BookReadModel>> GetAll()
+		public async Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var models = await _dbContext.Books.AsNoTrackingQueryable();
-			var readModels = models.Select(m => _mapper.Map(m)).AsEnumerable();
+			var query = new AllBooksQuery();
+			var books = await Task.Run(() => _queryProcessor.Process(query));
 
-			return readModels;
+			return books;
 		}
 
-		public override async Task<BookReadModel> GetById(int id)
+		public async Task<BookReadModel> GetById(int id)
 		{
-			var model = await _dbContext.Books.FindAsync(id);
-			var readModel = _mapper.Map(model);
+			var query = new BookByIdQuery { Id = id };
+			var book = await Task.Run(() => _queryProcessor.Process(query));
 
-			return readModel;
+			return book;
 		}
 
-		public override async Task<BookReadModel> FindBy(Predicate<BookReadModel> predicate)
+		public async Task<BookReadModel> FindBy(Predicate<BookReadModel> predicate)
 		{
-			var model = await Task.Run(() => _dbContext.Books.Find(predicate));
-			var readModel = _mapper.Map(model);
+			var query = new FindBookQuery { Predicate = predicate };
+			var book = await Task.Run(() => _queryProcessor.Process(query));
 
-			return readModel;
+			return book;
 		}
 	}
 }

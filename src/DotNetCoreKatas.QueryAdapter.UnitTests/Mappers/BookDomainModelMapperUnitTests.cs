@@ -4,9 +4,9 @@ using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Query.Adapter.Mappers;
 using DotNetCoreKatas.Query.Contracts.Models;
 
-namespace DotNetCoreKatas.QueryAdapter.UnitTests.Mappers
+namespace DotNetCoreKatas.Query.Adapter.UnitTests.Mappers
 {
-	public class BookDomainModelMapper
+	public class BookDomainModelMapperUnitTests
     {
 		[Fact]
 	    public void Mapper_Should_Map()

@@ -8,7 +8,8 @@ using Xunit;
 using Moq;
 
 using DotNetCoreKatas.Command.Adapter.Contracts;
-using DotNetCoreKatas.Query.Contracts.Adapters;
+using DotNetCoreKatas.Command.Contracts;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Controllers;
 
@@ -17,7 +18,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 	[ExcludeFromCodeCoverage]
     public class BooksControllerUnitTests
 	{
-		private static readonly Mock<IBooksQueryAdapter> QueryAdapterMock = new Mock<IBooksQueryAdapter>();
+		private static readonly Mock<IQueryAdapter<BookReadModel, int>> QueryAdapterMock = new Mock<IQueryAdapter<BookReadModel, int>>();
 		private static readonly Mock<IBooksCommandAdapter> CommandAdapterMock = new Mock<IBooksCommandAdapter>();
 
 		private static class Factory
