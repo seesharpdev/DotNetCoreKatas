@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreWebApi.Host.UnitT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB64A1DA-F2DD-4FCF-AF9F-F71CDA5F2146}"
 	ProjectSection(SolutionItems) = preProject
-		README.MD = README.MD
+		..\README.MD = ..\README.MD
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{DE0E3BB5-D941-497A-B785-72B7748FE5E9}"
