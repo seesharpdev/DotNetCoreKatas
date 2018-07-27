@@ -2,7 +2,7 @@ using DotNetCoreKatas.Core.Interfaces.Commanding;
 
 namespace DotNetCoreKatas.Command.Contracts
 {
-	public interface IDeleteBookCommand : IDomainCommand
+	public interface IDeleteBookCommand : ICommand
 	{
 	}
 }
