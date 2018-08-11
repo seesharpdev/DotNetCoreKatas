@@ -2,21 +2,12 @@ language: csharp
 dist: trusty
 mono: none
 dotnet: 2.1.300
-before_script: cd src
+before_script:
 script:
-- dotnet restore
-- dotnet build
-- cd .\DotNetCoreKatas.Command.Adapter.UnitTests
-- dotnet test
-- cd ..
-- cd .\DotNetCoreKatas.Query.Adapter.UnitTests
-- dotnet test
-- cd ..
-- cd .\DotNetCoreKatas.Core.UnitTests
-- dotnet test
-- cd ..
-- cd .\DotNetCoreKatas.Domain.UnitTests
-- dotnet test
-- cd ..
-- cd .\DotNetCoreWebApi.Host.UnitTests
-- dotnet test
+- dotnet restore src\DotNetCoreKatas.sln
+- dotnet build src\DotNetCoreKatas.sln
+- dotnet test src\DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Query.Adapter.UnitTests\DotNetCoreKatas.Query.Adapter.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Core.UnitTests\DotNetCoreKatas.Core.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Domain.UnitTests\DotNetCoreKatas.Domain.UnitTests.csproj
+- dotnet test src\DotNetCoreWebApi.Host.UnitTests\DotNetCoreWebApi.Host.UnitTests.csproj
