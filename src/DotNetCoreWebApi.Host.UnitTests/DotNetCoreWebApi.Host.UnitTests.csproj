@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extras.Moq" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="Moq" Version="4.9.0" />
@@ -18,15 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj" />
     <ProjectReference Include="..\DotNetCoreWebApi.Host\DotNetCoreWebApi.Host.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Autofac.Extras.Moq">
-      <HintPath>..\..\..\..\Users\Carlos\.nuget\packages\autofac.extras.moq\4.2.0\lib\netstandard1.3\Autofac.Extras.Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\..\..\Users\Carlos\.nuget\packages\moq\4.9.0\lib\netstandard1.3\Moq.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
