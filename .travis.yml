@@ -4,6 +4,10 @@ mono: none
 dotnet: 2.1.300
 before_script: cd src
 script:
-- dotnet restore DotNetCoreKatas.sln
-- dotnet build DotNetCoreKatas.sln
-- dotnet test --filter FullyQualifiedName~UnitTests
+- dotnet restore
+- dotnet build
+- dotnet test .\DotNetCoreKatas.Command.Adapter.UnitTests
+- dotnet test .\DotNetCoreKatas.Query.Adapter.UnitTests
+- dotnet test .\DotNetCoreKatas.Core.UnitTests
+- dotnet test .\DotNetCoreKatas.Domain.UnitTests
+- dotnet test .\DotNetCoreWebApi.Host.UnitTests
