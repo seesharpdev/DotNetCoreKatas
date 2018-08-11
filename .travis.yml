@@ -7,8 +7,8 @@ before_script:
 script:
 - dotnet restore
 - dotnet build
-- dotnet test DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj
-- dotnet test DotNetCoreKatas.Query.Adapter.UnitTests\DotNetCoreKatas.Query.Adapter.UnitTests.csproj
-- dotnet test DotNetCoreKatas.Core.UnitTests\DotNetCoreKatas.Core.UnitTests.csproj
-- dotnet test DotNetCoreKatas.Domain.UnitTests\DotNetCoreKatas.Domain.UnitTests.csproj
-- dotnet test DotNetCoreWebApi.Host.UnitTests\DotNetCoreWebApi.Host.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Query.Adapter.UnitTests\DotNetCoreKatas.Query.Adapter.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Core.UnitTests\DotNetCoreKatas.Core.UnitTests.csproj
+- dotnet test src\DotNetCoreKatas.Domain.UnitTests\DotNetCoreKatas.Domain.UnitTests.csproj
+- dotnet test src\DotNetCoreWebApi.Host.UnitTests\DotNetCoreWebApi.Host.UnitTests.csproj
