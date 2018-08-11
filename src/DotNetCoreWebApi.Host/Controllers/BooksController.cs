@@ -6,6 +6,7 @@ using DotNetCoreKatas.Command.Adapter.Contracts;
 using DotNetCoreKatas.Command.Contracts;
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
+using DotNetCoreWebApi.Host.Infrastructure.Filters;
 
 namespace DotNetCoreWebApi.Host.Controllers
 {
@@ -54,31 +55,28 @@ namespace DotNetCoreWebApi.Host.Controllers
         }
 
         [HttpPost]
+		[ModelValidation]
         public ActionResult Post([FromBody] BookReadModel model)
         {
-	        if (!ModelState.IsValid)
-	        {
-		        return BadRequest(ModelState);
-	        }
-
-	        var command = new CreateBookCommand { Id = model.Id };
+	        var command = new RegisterBookCommand { Id = model.Id };
 	        _commandAdapter.CreateBook(command);
 
 			return CreatedAtAction("Get", new { id = model }, model);
 		}
 
         [HttpPut("{id}")]
+		[ModelValidation]
         public ActionResult Put(int id, [FromBody] BookReadModel model)
         {
 			if (id != model.Id)
 			{
-				return NoContent();
-	        }
+				return BadRequest();
+			}
 
 	        var command = new UpdateBookCommand { Id = model.Id };
 	        _commandAdapter.UpdateBook(command);
 
-			return NoContent();
+	        return NoContent();
 		}
 
         [HttpDelete("{id}")]

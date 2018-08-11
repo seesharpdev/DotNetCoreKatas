@@ -5,9 +5,9 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class QueryHandlerBase
+	public abstract class QueryHandlerBase
 	{
-		public QueryHandlerBase(
+		internal QueryHandlerBase(
 			IDotNetCoreKatasDbContext dbContext,
 			IModelMapper<BookDomainModel, BookReadModel> mapper)
 		{
@@ -15,8 +15,8 @@ namespace DotNetCoreKatas.Query.Adapter.Handlers
 			Mapper = mapper;
 		}
 
-		public IDotNetCoreKatasDbContext DbContext { get; }
+		protected IDotNetCoreKatasDbContext DbContext { get; }
 
-		public IModelMapper<BookDomainModel, BookReadModel> Mapper { get; }
+		protected IModelMapper<BookDomainModel, BookReadModel> Mapper { get; }
 	}
 }

@@ -39,14 +39,17 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 
 	    public readonly IQueryable<BookDomainModel> BookDomainModels = new List<BookDomainModel>
 		    {
-			    new BookDomainModel(1),
-			    new BookDomainModel(2),
-			    new BookDomainModel(3)
+			    BookDomainModel.Create(1),
+			    BookDomainModel.Create(2),
+			    BookDomainModel.Create(3)
 		    }.AsQueryable();
 
 	    public Mock<DotNetCoreKatasDbContext> DbContextMock => DbContext;
+
 	    public Mock<DbSet<BookDomainModel>> DbSetMock => DbSet;
+
 	    public Mock<IModelMapper<BookDomainModel, BookReadModel>> MapperMock => Mapper;
+
 	    public Mock<IQueryProcessor> QueryProcessorMock => QueryProcessor;
 
 	    public void Dispose()

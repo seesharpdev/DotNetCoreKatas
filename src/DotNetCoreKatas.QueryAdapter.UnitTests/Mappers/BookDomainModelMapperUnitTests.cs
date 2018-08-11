@@ -13,7 +13,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Mappers
 	    {
 			// Arrange
 		    const int modelId = 1;
-		    var model = new BookDomainModel(modelId);
+		    var model = BookDomainModel.Create(modelId);
 		    var mapper = new BookModelMapper();
 
 		    // Act

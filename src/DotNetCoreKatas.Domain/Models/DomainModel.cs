@@ -8,6 +8,7 @@ namespace DotNetCoreKatas.Domain.Models
 
 		// Backing Fields needed by EF to hydrate our models.
 		private int _id;
+		private int _version;
 
 		#endregion
 
@@ -29,5 +30,7 @@ namespace DotNetCoreKatas.Domain.Models
 		}
 
 		public virtual int Id => _id;
+
+		public virtual int Version => _version;
 	}
 }

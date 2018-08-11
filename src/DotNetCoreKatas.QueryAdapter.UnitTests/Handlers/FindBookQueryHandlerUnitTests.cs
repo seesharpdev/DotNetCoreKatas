@@ -26,6 +26,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		    using (var mock = AutoMock.GetStrict())
 		    {
 				// Arrange
+			    const int bookId = 1;
 			    _fixture.DbSetMock
 				    .Setup(_ => _.Find(It.IsAny<object[]>()))
 				    .Returns(_fixture.BookDomainModels.FirstOrDefault());
@@ -34,7 +35,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 			    mock.Provide(_fixture.MapperMock.Object);
 
 				var handler = mock.Create<FindBookQueryHandler>();
-				var query = new FindBookQuery { Predicate = model => model.Id == 1 };
+			    var query = new FindBookQuery { Predicate = model => model.Id == bookId };
 
 				// Act
 				var result = handler.Handle(query);
@@ -42,7 +43,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 				// Assert
 			    Assert.NotNull(result);
 			    var book = Assert.IsAssignableFrom<BookReadModel>(result);
-			    Assert.Equal(1, book.Id);
+			    Assert.Equal(bookId, book.Id);
 			}
 	    }
     }

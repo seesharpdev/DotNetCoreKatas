@@ -22,8 +22,12 @@ namespace DotNetCoreKatas.Command.Adapter.UnitTests.Handlers
 				    .Setup(_ => _.Books)
 				    .Returns(new Mock<DbSet<BookDomainModel>>().Object);
 
-			    var handler = mock.Create<CreateBookCommandHandler>();
-			    var command = new CreateBookCommand { Id = 1 };
+			    mock.Mock<IDotNetCoreKatasDbContext>()
+				    .Setup(_ => _.SaveChanges())
+				    .Returns(1);
+
+			    var handler = mock.Create<RegisterBookCommandHandler>();
+			    var command = new RegisterBookCommand { Id = 1 };
 
 			    // Act
 			    var result = handler.Execute(command);
@@ -31,6 +35,8 @@ namespace DotNetCoreKatas.Command.Adapter.UnitTests.Handlers
 			    // Assert
 			    Assert.NotNull(result);
 			    Assert.False(result.IsFaulted);
+			    mock.Mock<IDotNetCoreKatasDbContext>()
+				    .VerifyAll();
 		    }
 	    }
     }
