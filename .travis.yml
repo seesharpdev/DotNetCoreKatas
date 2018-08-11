@@ -6,8 +6,17 @@ before_script: cd src
 script:
 - dotnet restore
 - dotnet build
-- dotnet test .\DotNetCoreKatas.Command.Adapter.UnitTests\DotNetCoreKatas.Command.Adapter.UnitTests.csproj
-- dotnet test .\DotNetCoreKatas.Query.Adapter.UnitTests\DotNetCoreKatas.Query.Adapter.UnitTests.csproj
-- dotnet test .\DotNetCoreKatas.Core.UnitTests\DotNetCoreKatas.Core.UnitTests.csproj
-- dotnet test .\DotNetCoreKatas.Domain.UnitTests\DotNetCoreKatas.Domain.UnitTests.csproj
-- dotnet test .\DotNetCoreWebApi.Host.UnitTests\DotNetCoreWebApi.Host.UnitTests.csproj
+- cd .\DotNetCoreKatas.Command.Adapter.UnitTests
+- dotnet test
+- cd ..
+- cd .\DotNetCoreKatas.Query.Adapter.UnitTests
+- dotnet test
+- cd ..
+- cd .\DotNetCoreKatas.Core.UnitTests
+- dotnet test
+- cd ..
+- cd .\DotNetCoreKatas.Domain.UnitTests
+- dotnet test
+- cd ..
+- cd .\DotNetCoreWebApi.Host.UnitTests
+- dotnet test
