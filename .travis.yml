@@ -6,4 +6,4 @@ before_script: cd src
 script:
 - dotnet restore DotNetCoreKatas.sln
 - dotnet build DotNetCoreKatas.sln
-- dotnet test --filter UnitTests
+- dotnet test --filter FullyQualifiedName~UnitTests
