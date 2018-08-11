@@ -3,6 +3,8 @@ Branch|Status
 Master|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=master)
 Develop|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=develop)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas/badge)](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas)
+
 # DotNetCoreKatas
 
 Hey! Welcome to my .Net Core 2 Playground. In here you'll find several 
