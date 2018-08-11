@@ -47,7 +47,6 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 
 			// Assert
 			Assert.NotNull(result);
-
 		}
     }
 }

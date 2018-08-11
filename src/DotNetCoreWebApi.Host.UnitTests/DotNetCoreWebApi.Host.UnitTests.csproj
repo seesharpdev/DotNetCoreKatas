@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Autofac.Extras.Moq">
+      <HintPath>..\..\..\..\Users\Carlos\.nuget\packages\autofac.extras.moq\4.2.0\lib\netstandard1.3\Autofac.Extras.Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\..\..\Users\Carlos\.nuget\packages\moq\4.9.0\lib\netstandard1.3\Moq.dll</HintPath>
     </Reference>

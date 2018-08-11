@@ -3,9 +3,8 @@
 	/// <summary>
 	/// Represents a Bounded Context Aggregate Root contract.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public interface IAggregateRoot<out T>
+	/// <typeparam name="T">The Aggregate Root unique identifier type.</typeparam>
+	public interface IAggregateRoot<T> : IEntity<T> where T : new()
 	{
-		T Id { get; }
 	}
 }

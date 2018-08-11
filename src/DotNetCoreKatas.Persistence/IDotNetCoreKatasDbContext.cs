@@ -7,5 +7,7 @@ namespace DotNetCoreKatas.Persistence
 	public interface IDotNetCoreKatasDbContext
 	{
 		DbSet<BookDomainModel> Books { get; set; }
+
+		int SaveChanges();
 	}
 }
