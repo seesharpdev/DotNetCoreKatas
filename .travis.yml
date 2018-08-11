@@ -4,6 +4,6 @@ mono: none
 dotnet: 2.1.300
 before_script: cd src
 script:
-- dotnet restore
-- dotnet build
-- dotnet test
+- dotnet restore DotNetCoreKatas.sln
+- dotnet build DotNetCoreKatas.sln
+- dotnet test DotNetCoreKatas.sln
