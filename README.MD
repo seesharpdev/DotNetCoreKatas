@@ -1,3 +1,8 @@
+Branch|Status
+-|-
+Master|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=master)
+Develop|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=develop)
+
 # DotNetCoreKatas
 
 Hey! Welcome to my .Net Core 2 Playground. In here you'll find several 
