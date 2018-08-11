@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extras.Moq" Version="4.2.0" />
+    <PackageReference Include="EfCore.TestSupport" Version="1.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.9.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetCoreKatas.Persistence\DotNetCoreKatas.Persistence.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.Query.Contracts\DotNetCoreKatas.Query.Contracts.csproj" />
+    <ProjectReference Include="..\DotNetCoreKatas.QueryAdapter\DotNetCoreKatas.Query.Adapter.csproj" />
+  </ItemGroup>
+
+</Project>
