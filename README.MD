@@ -1,9 +1,7 @@
 Branch|Status|Quality
--|-
+-|-|-
 Master|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=master)|[![CodeFactor](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas/badge)](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas)
-Develop|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=develop)
-
-[![CodeFactor](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas/badge)](https://www.codefactor.io/repository/github/seesharpdev/dotnetcorekatas)
+Develop|![Build Status](https://travis-ci.com/seesharpdev/DotNetCoreKatas.svg?branch=develop)|
 
 # DotNetCoreKatas
 
