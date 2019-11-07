@@ -6,6 +6,7 @@ namespace DotNetCoreKatas.Command.Adapter.UnitTests.Handlers
     {
 	    public CommandHandlersFixture()
 	    {
+			    
 	    }
 
 	    public void Dispose()
