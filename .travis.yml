@@ -6,5 +6,4 @@ script:
 - cd src
 - dotnet build
 - dotnet publish --output ../../output
-- cd ../output
 - dotnet test --filter FullyQualifiedName~UnitTests
