@@ -7,4 +7,4 @@ script:
 - dotnet build
 - dotnet publish --output ../../output
 - cd ../output
-- dotnet test DotNetCoreKatas.Command.Adapter.UnitTests.dll DotNetCoreKatas.Query.Adapter.UnitTests.dll DotNetCoreKatas.Core.UnitTests.dll DotNetCoreKatas.Domain.UnitTests.dll
+- dotnet test --filter FullyQualifiedName~UnitTests
