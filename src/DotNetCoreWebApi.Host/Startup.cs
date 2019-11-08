@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DotNetCoreWebApi.Host
@@ -22,7 +23,7 @@ namespace DotNetCoreWebApi.Host
         public void ConfigureServices(IServiceCollection services)
         {
 	        services.AddMvc(option => option.EnableEndpointRouting = false)
-	            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+	            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 	        // Uncomment to enable CORS
 	        //ConfigureCors(services);
@@ -55,7 +56,7 @@ namespace DotNetCoreWebApi.Host
 	    }
 
 	    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 	        if (env.IsDevelopment())
             {
@@ -72,7 +73,7 @@ namespace DotNetCoreWebApi.Host
 	        app.UseHttpsRedirection();
 	        app.UseStaticFiles();
 	        app.UseAuthentication(); // Must come after UseStaticFiles and before UseMvc!
-            app.UseMvc();
+            //app.UseMvc();
 
             // TODO: Test the Web Api using HTTP response compression
             //app.UseResponseCompression();
