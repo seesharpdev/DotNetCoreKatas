@@ -8,6 +8,7 @@ namespace DotNetCoreKatas.Query.Adapter
 {
 	public class QueryProcessor : IQueryProcessor
 	{
+        // Replace this with a QueryRegistry!
 		private readonly IContainer _container;
 
 		public QueryProcessor(IContainer container)

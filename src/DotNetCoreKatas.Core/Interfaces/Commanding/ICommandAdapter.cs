@@ -4,6 +4,7 @@ namespace DotNetCoreKatas.Core.Interfaces.Commanding
 	/// Marker interface for a Command Adapter.
 	/// </summary>
 	public interface ICommandAdapter
-	{
-	}
+    {
+        void Dispatch(ICommand command);
+    }
 }

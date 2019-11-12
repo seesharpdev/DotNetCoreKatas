@@ -17,7 +17,7 @@ namespace DotNetCoreKatas.Command.Adapter.Infrastructure
 
 	    private static void RegisterCommandAdapter(ContainerBuilder builder)
 	    {
-		    builder.RegisterType<BooksCommandAdapter>()
+		    builder.RegisterType<AzureServiceBusCommandAdapter>()
 			    .AsImplementedInterfaces();
 	    }
     }

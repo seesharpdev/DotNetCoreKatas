@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore;
+﻿using System.IO;
+
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 
 namespace DotNetCoreWebApi.Host
@@ -7,12 +10,17 @@ namespace DotNetCoreWebApi.Host
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build()
-	            .Run();
-        }
+               var host = new HostBuilder()
+                   .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                   .ConfigureWebHostDefaults(webHostBuilder =>
+                       {
+                           webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory())
+                               .UseIISIntegration()
+                               .UseStartup<Startup>();
+                       })
+                   .Build();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+               host.Run();
+        }
     }
 }

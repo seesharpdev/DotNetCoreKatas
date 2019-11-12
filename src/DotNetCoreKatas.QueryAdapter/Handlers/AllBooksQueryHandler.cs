@@ -22,7 +22,7 @@ namespace DotNetCoreKatas.Query.Adapter.Handlers
 		
 		public IEnumerable<BookReadModel> Handle(AllBooksQuery query)
 		{
-			var models = DbContext.Books.AsNoTrackingQueryable().Result;
+			var models = DbContext.Books.AsNoTrackingQueryable().GetAwaiter().GetResult();
 			var books = models.Select(m => Mapper.Map(m))
 				.AsEnumerable();
 

@@ -3,11 +3,10 @@
 using FluentScheduler;
 
 using DotNetCoreConsoleApp.Jobs;
-using Serilog;
 
 namespace DotNetCoreConsoleApp
 {
-	public class SchedulerJobsRegistry : Registry
+    public class SchedulerJobsRegistry : Registry
     {
 	    public SchedulerJobsRegistry()
 	    {
