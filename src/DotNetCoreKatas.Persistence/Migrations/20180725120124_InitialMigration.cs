@@ -11,7 +11,9 @@ namespace DotNetCoreKatas.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    //Title = table.Column<string>(nullable: false, maxLength: 255),
+                    //Isbn = table.Column<string>(nullable: false, maxLength: 255)
                 },
                 constraints: table =>
                 {

@@ -19,16 +19,14 @@ namespace DotNetCoreKatas.Query.Adapter.Adapters
 
 		public async Task<IEnumerable<BookReadModel>> GetAll()
 		{
-			var query = new AllBooksQuery();
-			var books = await Task.Run(() => _queryProcessor.Process(query));
+            var books = await Task.Run(() => _queryProcessor.Process(new AllBooksQuery()));
 
 			return books;
 		}
 
 		public async Task<BookReadModel> GetById(int id)
 		{
-			var query = new BookByIdQuery { Id = id };
-			var book = await Task.Run(() => _queryProcessor.Process(query));
+            var book = await Task.Run(() => _queryProcessor.Process(new BookByIdQuery { Id = id }));
 
 			return book;
 		}

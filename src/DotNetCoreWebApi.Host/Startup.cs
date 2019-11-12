@@ -4,15 +4,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using DotNetCoreKatas.Command.Adapter.Infrastructure;
 using DotNetCoreKatas.Query.Adapter.Infrastructure;
+using DotNetCoreKatas.Core;
+using DotNetCoreKatas.Persistence;
 
 namespace DotNetCoreWebApi.Host
 {
@@ -24,6 +26,7 @@ namespace DotNetCoreWebApi.Host
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true)
+                .AddUserSecrets<Startup>()
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -38,11 +41,13 @@ namespace DotNetCoreWebApi.Host
         {
             services.AddOptions();
 
-	        //services.AddMvc(option => option.EnableEndpointRouting = false)
-	        //    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.Configure<ServiceBusOptions>(Configuration.GetSection("ServiceBusOptions"));
+
+            //services.AddMvc(option => option.EnableEndpointRouting = false)
+            //    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers();
 
-	        // Uncomment to enable CORS
+	        // TODO: Move to a Mvc specific Startup.cs in a Mvc App [Uncomment to enable CORS]
 	        //ConfigureCors(services);
 
 	        ConfigureAuthentication(services);
@@ -55,6 +60,16 @@ namespace DotNetCoreWebApi.Host
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            var serviceBusOptions = Configuration.GetSection("ServiceBusOptions").Get<ServiceBusOptions>();
+
+            builder.Register(c => new QueueClient(
+                    serviceBusOptions.ConnectionString,
+                    serviceBusOptions.QueueName))
+                .As<IQueueClient>();
+
+            builder.RegisterType<DotNetCoreKatasDbContext>()
+                .As<IDotNetCoreKatasDbContext>();
+
             builder.RegisterModule<QueryAdapterModule>();
             builder.RegisterModule<CommandAdapterModule>();
         }

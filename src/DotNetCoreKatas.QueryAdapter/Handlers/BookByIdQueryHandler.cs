@@ -17,11 +17,14 @@ namespace DotNetCoreKatas.Query.Adapter.Handlers
 		}
 
 		public BookReadModel Handle(BookByIdQuery query)
-		{
-			var model = DbContext.Books.Find(query.Id);
-			var book = Mapper.Map(model);
+        {
+            // TMP: For user testing purposes(for Unit Tests seeding is used);
+            //DbContext.Books.Add(BookDomainModel.Create(query.Id));
 
-			return book;
+			var model = DbContext.Books.Find(query.Id);
+            var book = Mapper.Map(model);
+
+            return book;
 		}
 	}
 }

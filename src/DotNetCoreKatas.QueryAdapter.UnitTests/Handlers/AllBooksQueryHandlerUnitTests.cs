@@ -26,19 +26,18 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 		    using (var mock = AutoMock.GetStrict())
 		    {
 				// Arrange
-			    mock.Provide<IDotNetCoreKatasDbContext>(_fixture.DbContextMock.Object);
+			    mock.Provide(_fixture.DbContextMock.Object);
 			    mock.Provide(_fixture.MapperMock.Object);
 
 				var handler = mock.Create<AllBooksQueryHandler>();
-				var query = new AllBooksQuery();
 
-			    // Act
-			    var result = handler.Handle(query);
+                // Act
+			    var result = handler.Handle(new AllBooksQuery());
 
 			    // Assert
 			    Assert.NotNull(result);
 			    var bookCount = Assert.IsAssignableFrom<IEnumerable<BookReadModel>>(result);
-			    Assert.Equal(3, bookCount.Count());
+			    Assert.Equal(_fixture.BookDomainModels.Count(), bookCount.Count());
 		    }
 	    }
     }

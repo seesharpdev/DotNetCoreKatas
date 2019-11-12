@@ -31,7 +31,7 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 				    .Setup(_ => _.Find(It.IsAny<object[]>()))
 				    .Returns(_fixture.BookDomainModels.FirstOrDefault());
 
-				mock.Provide<IDotNetCoreKatasDbContext>(_fixture.DbContextMock.Object);
+				mock.Provide(_fixture.DbContextMock.Object);
 			    mock.Provide(_fixture.MapperMock.Object);
 
 				var handler = mock.Create<FindBookQueryHandler>();

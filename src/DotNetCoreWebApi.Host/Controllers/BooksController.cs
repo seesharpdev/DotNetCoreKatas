@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using DotNetCoreKatas.Command.Adapter.Contracts;
-using DotNetCoreKatas.Command.Contracts;
+using DotNetCoreKatas.Command.Contracts; // TODO: Move to DotNetCoreKatas.Domain.
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Infrastructure.Filters;
@@ -61,7 +61,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 	        var command = new RegisterBookCommand { Id = model.Id };
 	        _commandAdapter.Dispatch(command);
 
-			return CreatedAtAction("Get", new { id = model }, model);
+			return CreatedAtAction("Get", new { id = model.Id }, model);
 		}
 
         [HttpPut("{id}")]

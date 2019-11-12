@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.1" />
   </ItemGroup>
 
 </Project>

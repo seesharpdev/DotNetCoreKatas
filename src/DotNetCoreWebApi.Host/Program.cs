@@ -16,6 +16,7 @@ namespace DotNetCoreWebApi.Host
                        {
                            webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory())
                                .UseIISIntegration()
+                               //.UseKestrel() // TESTING: Not working?
                                .UseStartup<Startup>();
                        })
                    .Build();
