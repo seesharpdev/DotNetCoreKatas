@@ -16,11 +16,11 @@ namespace DotNetCoreKatas.Command.Adapter.Handlers
 			_dbContext = dbContext;
 		}
 
-		public Task Execute(RegisterBookCommand command)
+		public Task Handle(RegisterBookCommand command)
 		{
 			var book = BookDomainModel.Create(command.Id);
-			book.SetTitle("bookTitle")
-				.SetIsbn("Isbn");
+			book.SetTitle(command.Title)
+				.SetIsbn(command.Isbn);
 
 			// TODO: Raise Event from AggregateRoot when applying EventSourcing.
 			_dbContext.Books.Add(book);

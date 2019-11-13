@@ -50,5 +50,7 @@ namespace DotNetCoreWebApi.Host.UnitTests.Infrastructure.Filters
 				Assert.IsType<BadRequestObjectResult>(actionExecutingContext.Result);
 			}
 		}
+
+        // TODO: Test for exception (Should_Return_BadRequestObjectResult)
     }
 }

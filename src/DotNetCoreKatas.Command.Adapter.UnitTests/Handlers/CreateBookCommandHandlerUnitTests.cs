@@ -30,7 +30,7 @@ namespace DotNetCoreKatas.Command.Adapter.UnitTests.Handlers
 			    var command = new RegisterBookCommand { Id = 1 };
 
 			    // Act
-			    var result = handler.Execute(command);
+			    var result = handler.Handle(command);
 
 			    // Assert
 			    Assert.NotNull(result);

@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using DotNetCoreKatas.Command.Adapter.Contracts;
-using DotNetCoreKatas.Command.Contracts;
+using DotNetCoreKatas.Command.Contracts; // TODO: Move to DotNetCoreKatas.Domain.
 using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreWebApi.Host.Infrastructure.Filters;
@@ -17,7 +17,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 	    #region Private Members
 
 	    private readonly IQueryAdapter<BookReadModel, int> _queryAdapter;
-		private readonly IBooksCommandAdapter _commandAdapter;
+		private readonly IAzureServiceBusCommandAdapter _commandAdapter;
 
 	    #endregion
 
@@ -25,7 +25,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 
 	    public BooksController(
 		    IQueryAdapter<BookReadModel, int> queryAdapter, 
-		    IBooksCommandAdapter commandAdapter)
+		    IAzureServiceBusCommandAdapter commandAdapter)
 	    {
 		    _queryAdapter = queryAdapter;
 		    _commandAdapter = commandAdapter;
@@ -59,9 +59,9 @@ namespace DotNetCoreWebApi.Host.Controllers
         public ActionResult Post([FromBody] BookReadModel model)
         {
 	        var command = new RegisterBookCommand { Id = model.Id };
-	        _commandAdapter.CreateBook(command);
+	        _commandAdapter.Dispatch(command);
 
-			return CreatedAtAction("Get", new { id = model }, model);
+			return CreatedAtAction("Get", new { id = model.Id }, model);
 		}
 
         [HttpPut("{id}")]
@@ -74,7 +74,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 			}
 
 	        var command = new UpdateBookCommand { Id = model.Id };
-	        _commandAdapter.UpdateBook(command);
+	        _commandAdapter.Dispatch(command);
 
 	        return NoContent();
 		}
@@ -88,7 +88,7 @@ namespace DotNetCoreWebApi.Host.Controllers
 	        }
 
 	        var command = new DeleteBookCommand { Id = id };
-	        _commandAdapter.DeleteBook(command);
+	        _commandAdapter.Dispatch(command);
 
 	        return Ok();
 		}

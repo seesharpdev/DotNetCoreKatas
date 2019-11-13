@@ -156,9 +156,8 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    using (var mock = AutoMock.GetStrict())
 		    {
 				// Arrange
-			    mock.Mock<IBooksCommandAdapter>()
-				    .Setup(_ => _.CreateBook(It.IsAny<ICreateBookCommand>()))
-				    .Returns(Task.CompletedTask);
+			    mock.Mock<IAzureServiceBusCommandAdapter>()
+				    .Setup(_ => _.Dispatch(It.IsAny<ICreateBookCommand>()));
 
 			    var controller = mock.Create<BooksController>();
 			    var model = new BookReadModel { Id = 1 };
@@ -168,7 +167,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 
 			    // Assert
 			    Assert.IsType<CreatedAtActionResult>(response);
-			    mock.Mock<IBooksCommandAdapter>().VerifyAll();
+			    mock.Mock<IAzureServiceBusCommandAdapter>().VerifyAll();
 		    }
 	    }
 
@@ -178,9 +177,8 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    using (var mock = AutoMock.GetStrict())
 		    {
 				// Arrange
-			    mock.Mock<IBooksCommandAdapter>()
-				    .Setup(_ => _.CreateBook(It.IsAny<ICreateBookCommand>()))
-				    .Returns(Task.CompletedTask);
+			    mock.Mock<IAzureServiceBusCommandAdapter>()
+				    .Setup(_ => _.Dispatch(It.IsAny<ICreateBookCommand>()));
 
 				var controller = mock.Create<BooksController>();
 				var model = new BookReadModel { Id = 1 };
@@ -192,7 +190,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 			    // Assert
 			    Assert.IsType<BookReadModel>(book);
 			    Assert.NotNull(book);
-			    mock.Mock<IBooksCommandAdapter>().VerifyAll();
+			    mock.Mock<IAzureServiceBusCommandAdapter>().VerifyAll();
 			}
 		}
 
@@ -218,9 +216,8 @@ namespace DotNetCoreWebApi.Host.UnitTests
 		    using (var mock = AutoMock.GetStrict())
 		    {
 				// Arrange
-			    mock.Mock<IBooksCommandAdapter>()
-				    .Setup(_ => _.DeleteBook(It.IsAny<IDeleteBookCommand>()))
-				    .Returns(Task.CompletedTask);
+			    mock.Mock<IAzureServiceBusCommandAdapter>()
+				    .Setup(_ => _.Dispatch(It.IsAny<IDeleteBookCommand>()));
 
 				var controller = mock.Create<BooksController>();
 				const int existingId = 1;
@@ -230,7 +227,7 @@ namespace DotNetCoreWebApi.Host.UnitTests
 
 			    // Assert
 			    Assert.IsType<OkResult>(response);
-			    mock.Mock<IBooksCommandAdapter>().VerifyAll();
+			    mock.Mock<IAzureServiceBusCommandAdapter>().VerifyAll();
 		    }
 		}
 	}

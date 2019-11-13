@@ -19,6 +19,9 @@ namespace DotNetCoreKatas.Query.Adapter.Infrastructure
 
 			// TODO: RegisterModule's for dependencies: IDotNetCoreKatasDbContext and IModelMapper<BookDomainModel, BookReadModel>
 
+            builder.RegisterType<QueryProcessor>()
+                .As<IQueryProcessor>();
+
 			RegisterAdapters(builder);
 			RegisterHandlers(builder);
 			RegisterMappers(builder);
@@ -36,9 +39,12 @@ namespace DotNetCoreKatas.Query.Adapter.Infrastructure
 				.Where(t => t.Name.EndsWith("Handler"))
 				.AsImplementedInterfaces();
 
-			builder.RegisterType<AllBooksQueryHandler>()
-				.As<IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>>();
-		}
+			//builder.RegisterType<AllBooksQueryHandler>()
+			//	.As<IQueryHandler<AllBooksQuery, IEnumerable<BookReadModel>>>();
+
+            // TODO: builder.RegisterType<FindBookByIdQuery>()
+            //    .As<IFindBookByIdQuery>();
+        }
 
 		private static void RegisterMappers(ContainerBuilder builder)
 		{
