@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 
 using DotNetCoreKatas.Core.Interfaces;
-using DotNetCoreKatas.Core.Interfaces.Querying;
 using DotNetCoreKatas.Domain.Models;
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Query.Contracts.Models;
@@ -15,12 +14,10 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 {
 	public class QueryHandlersFixture : IDisposable
     {
-	    private readonly Mock<DotNetCoreKatasDbContext> DbContext = new Mock<DotNetCoreKatasDbContext>();
+	    private readonly Mock<IDotNetCoreKatasDbContext> DbContext = new Mock<IDotNetCoreKatasDbContext>();
 	    private readonly Mock<DbSet<BookDomainModel>> DbSet = new Mock<DbSet<BookDomainModel>>(MockBehavior.Strict);
 	    private readonly Mock<IModelMapper<BookDomainModel, BookReadModel>> Mapper =
 		    new Mock<IModelMapper<BookDomainModel, BookReadModel>>();
-
-		private readonly Mock<IQueryProcessor> QueryProcessor = new Mock<IQueryProcessor>();
 
 	    public QueryHandlersFixture()
 	    {
@@ -44,13 +41,11 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests.Handlers
 			    BookDomainModel.Create(3)
 		    }.AsQueryable();
 
-	    public Mock<DotNetCoreKatasDbContext> DbContextMock => DbContext;
+	    public Mock<IDotNetCoreKatasDbContext> DbContextMock => DbContext;
 
 	    public Mock<DbSet<BookDomainModel>> DbSetMock => DbSet;
 
 	    public Mock<IModelMapper<BookDomainModel, BookReadModel>> MapperMock => Mapper;
-
-	    public Mock<IQueryProcessor> QueryProcessorMock => QueryProcessor;
 
 	    public void Dispose()
 	    {

@@ -7,7 +7,8 @@ using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class BookByIdQueryHandler : QueryHandlerBase, IQueryHandler<BookByIdQuery, BookReadModel>
+	public class BookByIdQueryHandler : QueryHandlerBase, 
+        IQueryHandler<BookByIdQuery, BookReadModel, BookReadModel>
 	{
 		public BookByIdQueryHandler(
 			IDotNetCoreKatasDbContext dbContext, 
@@ -17,11 +18,14 @@ namespace DotNetCoreKatas.Query.Adapter.Handlers
 		}
 
 		public BookReadModel Handle(BookByIdQuery query)
-		{
-			var model = DbContext.Books.Find(query.Id);
-			var book = Mapper.Map(model);
+        {
+            // TMP: For user testing purposes(for Unit Tests seeding is used);
+            //DbContext.Books.Add(BookDomainModel.Create(query.Id));
 
-			return book;
+			var model = DbContext.Books.Find(query.Id);
+            var book = Mapper.Map(model);
+
+            return book;
 		}
 	}
 }

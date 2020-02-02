@@ -2,7 +2,7 @@
 
 namespace DotNetCoreKatas.Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,9 +11,7 @@ namespace DotNetCoreKatas.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    //Title = table.Column<string>(nullable: false, maxLength: 255),
-                    //Isbn = table.Column<string>(nullable: false, maxLength: 255)
+                        .Annotation("Sqlite:Autoincrement", true)
                 },
                 constraints: table =>
                 {
