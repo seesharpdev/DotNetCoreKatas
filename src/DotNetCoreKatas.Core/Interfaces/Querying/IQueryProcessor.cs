@@ -2,6 +2,7 @@
 {
 	public interface IQueryProcessor
 	{
-		TResult Process<TResult>(IQuery<TResult> query);
+        TResult Process<TReadModel, TResult>(IQuery<TReadModel, TResult> query) 
+            where TReadModel : IReadModel;
 	}
 }

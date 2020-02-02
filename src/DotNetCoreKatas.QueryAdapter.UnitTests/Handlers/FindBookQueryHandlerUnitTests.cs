@@ -4,7 +4,6 @@ using Autofac.Extras.Moq;
 using Moq;
 using Xunit;
 
-using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Query.Adapter.Handlers;
 using DotNetCoreKatas.Query.Contracts.Models;
 using DotNetCoreKatas.Query.Contracts.Queries;

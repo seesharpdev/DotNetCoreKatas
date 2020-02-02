@@ -1,18 +1,20 @@
 ﻿using System;
 
-using Autofac;
-using Autofac.Core.Lifetime;
 using Moq;
 
 using DotNetCoreKatas.Persistence;
 using DotNetCoreKatas.Query.Adapter.Handlers;
+using DotNetCoreKatas.Core.Interfaces.Querying;
 
 namespace DotNetCoreKatas.Query.Adapter.UnitTests
 {
     public class QueryProcessorFixture : IDisposable
     {
         private readonly Mock<IDotNetCoreKatasDbContext> DbContext = new Mock<IDotNetCoreKatasDbContext>();
-        private readonly Mock<ILifetimeScope> Container = new Mock<ILifetimeScope>();
+
+        // WIP: Replacing ILifetimeScope with IQueryHandlerRegistry
+        //private readonly Mock<ILifetimeScope> Container = new Mock<ILifetimeScope>();
+        private readonly Mock<IQueryHandlerRegistry> QueryHandlerRegistry = new Mock<IQueryHandlerRegistry>();
 
         private readonly Mock<AllBooksQueryHandler> QueryHandler = new Mock<AllBooksQueryHandler>();
 
@@ -36,7 +38,8 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 
         public Mock<IDotNetCoreKatasDbContext> DbContextMock => DbContext;
 
-        public Mock<ILifetimeScope> ContainerMock => Container;
+        //public Mock<ILifetimeScope> ContainerMock => Container;
+        public Mock<IQueryHandlerRegistry> QueryHandlerRegistryMock => QueryHandlerRegistry;
 
         public Mock<AllBooksQueryHandler> QueryHandlerMock => QueryHandler;
 

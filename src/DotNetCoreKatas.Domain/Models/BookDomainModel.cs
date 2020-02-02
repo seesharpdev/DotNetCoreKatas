@@ -3,9 +3,9 @@ using DotNetCoreKatas.Domain.Events;
 
 namespace DotNetCoreKatas.Domain.Models
 {
-	public partial class BookDomainModel : IAggregateRoot<int>
-	{
-		/// <inheritdoc />
+    public partial class BookDomainModel : IAggregateRoot<int>
+    {
+        /// <inheritdoc />
 		/// <summary>
 		/// This should be our only option to instantiate a new Book AR.
 		/// </summary>
@@ -23,12 +23,14 @@ namespace DotNetCoreKatas.Domain.Models
 		{
 		}
 
-		public static BookDomainModel Create(int id)
-		{
-			return new BookDomainModel(1);
-		}
+        public static BookDomainModel Create(int id)
+        {
+            var model = new BookDomainModel(id);
 
-		public int Id { get; private set; }
+            return model;
+        }
+
+        public int Id { get; private set; }
 
 		public string Isbn { get; private set; }
 
@@ -42,7 +44,7 @@ namespace DotNetCoreKatas.Domain.Models
 
 			var @event = new BookTitleUpdatedEvent(Id, title);
 
-			return this;
+            return this;
 		}
 
 		public BookDomainModel SetIsbn(string isbn)

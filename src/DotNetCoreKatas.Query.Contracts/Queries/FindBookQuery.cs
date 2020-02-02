@@ -5,7 +5,7 @@ using DotNetCoreKatas.Query.Contracts.Models;
 
 namespace DotNetCoreKatas.Query.Contracts.Queries
 {
-	public class FindBookQuery : IQuery<BookReadModel>
+	public class FindBookQuery : IQuery<BookReadModel, BookReadModel>
 	{
 		public Predicate<BookReadModel> Predicate { get; set; }
 	}

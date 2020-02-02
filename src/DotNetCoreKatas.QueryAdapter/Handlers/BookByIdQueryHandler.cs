@@ -7,7 +7,8 @@ using DotNetCoreKatas.Query.Contracts.Queries;
 
 namespace DotNetCoreKatas.Query.Adapter.Handlers
 {
-	public class BookByIdQueryHandler : QueryHandlerBase, IQueryHandler<BookByIdQuery, BookReadModel>
+	public class BookByIdQueryHandler : QueryHandlerBase, 
+        IQueryHandler<BookByIdQuery, BookReadModel, BookReadModel>
 	{
 		public BookByIdQueryHandler(
 			IDotNetCoreKatasDbContext dbContext, 

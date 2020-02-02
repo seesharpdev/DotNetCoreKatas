@@ -1,4 +1,7 @@
-﻿using Autofac.Extras.Moq;
+﻿using System;
+
+using Autofac.Extras.Moq;
+using Moq;
 using Xunit;
 
 using DotNetCoreKatas.Core.Interfaces.Querying;
@@ -8,14 +11,15 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
 {
     public class QueryProcessorUnitTests : IClassFixture<QueryProcessorFixture>
     {
-        private QueryProcessorFixture _fixture;
+        private readonly QueryProcessorFixture _fixture;
 
         public QueryProcessorUnitTests(QueryProcessorFixture fixture)
         {
             _fixture = fixture;
         }
 
-	    [Fact(Skip = "Cannot mock extension methods: 'ILifetimeScope.Resolve'.")]
+	    [Fact()]
+	    //[Fact(Skip = "Cannot mock extension methods: 'ILifetimeScope.Resolve'.")]
 	    public void QueryProcessor_Should_Process_Query()
 	    {
             using (var mock = AutoMock.GetLoose())
@@ -23,9 +27,12 @@ namespace DotNetCoreKatas.Query.Adapter.UnitTests
                 // Arrange
                 mock.Provide(_fixture.DbContextMock.Object);
 
+                // WIP: Replacing ILifetimeScope with IQueryHandlerRegistry
                 //_fixture.ContainerMock.Setup(_ => _.Resolve(It.IsAny<Type>()))
                 //    .Returns(_fixture.QueryHandlerMock.Object);
-                mock.Provide(_fixture.ContainerMock.Object);
+                //mock.Provide(_fixture.ContainerMock.Object);
+                //_fixture.QueryHandlerRegistryMock.Setup(_ => _.Resolve<>(It.IsAny<Type>()));
+                mock.Provide(_fixture.QueryHandlerRegistryMock.Object);
 
                 IQueryProcessor queryProcessor = mock.Create<QueryProcessor>();
 
