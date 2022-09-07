@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using DotNetCoreKatas.Domain.Models;
 
 namespace DotNetCoreKatas.Persistence
 {
-	public class DotNetCoreKatasDbContext : DbContext, IDotNetCoreKatasDbContext
+	public class DotNetCoreKatasDbContext : IdentityDbContext, IDotNetCoreKatasDbContext
 	{
         // TODO: Introduce DbContextFactory
-        public DotNetCoreKatasDbContext()
+        public DotNetCoreKatasDbContext(DbContextOptions<DotNetCoreKatasDbContext> options)
+            : base(options)
         {
             Database.EnsureCreated();
         }
@@ -21,7 +23,7 @@ namespace DotNetCoreKatas.Persistence
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	    {
-		    optionsBuilder.UseSqlite("Data Source=blogging.db");
+		    //optionsBuilder.UseSqlite("Data Source=blogging.db");
 		}
 
 	    protected override void OnModelCreating(ModelBuilder modelBuilder)
