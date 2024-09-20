@@ -17,8 +17,8 @@
             // TODO: Check if the User Agent is a browser
             if (requirement.Name == UserAgentOperations.Read)
             {
-                var parser = Parser.GetDefault();
-                var clientInfo = parser.Parse(userAgent);
+				Parser parser = Parser.GetDefault();
+				ClientInfo clientInfo = parser.Parse(userAgent);
 
                 #region Examples
 

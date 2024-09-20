@@ -1,14 +1,11 @@
 ﻿namespace DotNetCoreWebHost.Controllers
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Diagnostics;
-	using System.Security.Claims;
 	using System.Threading.Tasks;
 
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.Extensions.Logging;
-	using Microsoft.AspNetCore.Authentication;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 
@@ -54,20 +51,20 @@
         [AllowAnonymous]
         public async Task<IActionResult> Login(string username, string password)
         {
-            #region Obsolete
-            //var userClaims = new List<Claim>
-            //    {
-            //        new Claim(ClaimTypes.Name, "Name"),
-            //        new Claim(ClaimTypes.Email, "email@domain.com"),
-            //        new Claim("SubscriptionId", Guid.NewGuid().ToString())
-            //    };
+			#region Obsolete
+			//var userClaims = new List<Claim>
+			//    {
+			//        new Claim(ClaimTypes.Name, "Name"),
+			//        new Claim(ClaimTypes.Email, "email@domain.com"),
+			//        new Claim("SubscriptionId", Guid.NewGuid().ToString())
+			//    };
 
-            //var userIdentity = new ClaimsIdentity(userClaims, "CookieAuth");
-            //var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
-            //HttpContext.SignInAsync(userPrincipal);
-            #endregion
+			//var userIdentity = new ClaimsIdentity(userClaims, "CookieAuth");
+			//var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
+			//HttpContext.SignInAsync(userPrincipal);
+			#endregion
 
-            var user = await _userManager.FindByNameAsync(username);
+			IdentityUser user = await _userManager.FindByNameAsync(username);
             if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
@@ -95,8 +92,8 @@
         {
             try
             {
-                var identityUser = new IdentityUser(username);
-                var result = await _userManager.CreateAsync(identityUser, password);
+				IdentityUser identityUser = new(username);
+				IdentityResult result = await _userManager.CreateAsync(identityUser, password);
                 
                 // TODO: Set User Claims?
 
